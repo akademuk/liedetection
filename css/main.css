@@ -70,7 +70,6 @@ html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: clip;
   max-width: 100%;
 }
 
@@ -89,7 +88,6 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-main);
   transition: var(--transition-theme);
-  overflow-x: hidden;
   max-width: 100%;
 }
 
