@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 100" role="img" aria-label="Lie Detection Group Ukraine — Детектор брехні">
+  <defs>
+    <linearGradient id="ldg-text-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0066cc"/>
+      <stop offset="100%" stop-color="#003d7a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Emblem -->
+  <g transform="translate(50,50)">
+    <defs>
+      <path id="ldg-top-arc" d="M -30,-14 A 32,32 0 0,1 30,-14" fill="none"/>
+      <path id="ldg-bottom-arc" d="M 30,14 A 32,32 0 0,1 -30,14" fill="none"/>
+    </defs>
+
+    <!-- Blue ring band -->
+    <path
+      d="M 0,-48 A 48,48 0 1,1 -0.01,-48 Z M 0,-34 A 34,34 0 1,0 0.01,-34 Z"
+      fill="#004a99"
+      fill-rule="evenodd"
+    />
+
+    <!-- Ring text -->
+    <text fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="5.6" font-weight="700" letter-spacing="0.85">
+      <textPath href="#ldg-top-arc" startOffset="50%" text-anchor="middle">LIE DETECTION GROUP</textPath>
+    </text>
+    <text fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="6" font-weight="700" letter-spacing="1.5">
+      <textPath href="#ldg-bottom-arc" startOffset="50%" text-anchor="middle">UKRAINE</textPath>
+    </text>
+
+    <!-- Red separators -->
+    <circle cx="-46" cy="0" r="2.2" fill="#e31e24"/>
+    <circle cx="46" cy="0" r="2.2" fill="#e31e24"/>
+
+    <!-- Magnifying glass -->
+    <path
+      d="M -13,-17 A 17,17 0 1,1 9,13"
+      fill="none"
+      stroke="#004a99"
+      stroke-width="6.5"
+      stroke-linecap="round"
+    />
+    <line x1="9" y1="13" x2="20" y2="24" stroke="#004a99" stroke-width="6.5" stroke-linecap="round"/>
+
+    <!-- Polygraph waveform -->
+    <polyline
+      points="-20,1 -14,-7 -8,7 -2,-9 4,5 10,-3 16,9 22,-1 28,5"
+      fill="none"
+      stroke="#e31e24"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <!-- Main title -->
+  <text
+    x="108"
+    y="62"
+    fill="url(#ldg-text-grad)"
+    font-family="'Arial Black', Arial, 'Helvetica Neue', sans-serif"
+    font-size="34"
+    font-weight="900"
+    letter-spacing="0.5"
+  >ДЕТЕКТОР БРЕХНІ</text>
+</svg>
