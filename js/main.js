@@ -59,7 +59,11 @@
   /* --- Smart Header --- */
   const header = document.getElementById('header');
   const nav = document.getElementById('nav');
-  let lastScrollY = 0;
+
+  function getScrollY() {
+    if (lenis && typeof lenis.scroll === 'number') return lenis.scroll;
+    return window.scrollY || document.documentElement.scrollTop;
+  }
 
   function getHeaderOffset() {
     return header ? -header.offsetHeight : -112;
@@ -68,28 +72,16 @@
   function handleSmartHeader() {
     if (!header) return;
 
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-    const delta = scrollY - lastScrollY;
-    const navOpen = nav?.classList.contains('nav--open');
+    const scrollY = getScrollY();
 
     if (scrollY <= 10) {
       header.classList.remove('site-header--scrolled', 'site-header--compact', 'site-header--hidden');
-      lastScrollY = scrollY;
       return;
     }
 
     header.classList.add('site-header--scrolled');
     header.classList.toggle('site-header--compact', scrollY > 48);
-
-    if (navOpen) {
-      header.classList.remove('site-header--hidden');
-    } else if (delta > 6 && scrollY > 140) {
-      header.classList.add('site-header--hidden');
-    } else if (delta < -6) {
-      header.classList.remove('site-header--hidden');
-    }
-
-    lastScrollY = scrollY;
+    header.classList.remove('site-header--hidden');
   }
 
   if (lenis) {
@@ -611,6 +603,23 @@
         btn.style.opacity = '';
         contactForm.reset();
       }, 3000);
+    });
+  }
+
+  /* --- Fancybox gallery (contact page) --- */
+  if (typeof Fancybox !== 'undefined') {
+    Fancybox.bind('[data-fancybox="contact-gallery"]', {
+      groupAll: true,
+      Carousel: {
+        infinite: true,
+      },
+      Toolbar: {
+        display: {
+          left: ['infobar'],
+          middle: [],
+          right: ['close'],
+        },
+      },
     });
   }
 
