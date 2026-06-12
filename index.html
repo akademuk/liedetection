@@ -72,6 +72,22 @@
           "@type": "Answer",
           "text": "Так, за потреби ми оформлюємо офіційний висновок. Формат документа залежить від цілей перевірки — HR, юридичний або судовий."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Чи потрібна добровільна згода?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Так. Перевірка на поліграфі проводиться лише за добровільною письмовою згодою особи, яка тестується. Ми пояснюємо процедуру до початку і не продовжуємо без згоди."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Як підготуватися до тестування?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Рекомендуємо висипатися, не вживати алкоголь і речовини, що впливають на стан, за добу до тесту. Детальні рекомендації — у памʼятці для тестування на сайті."
+        }
       }
     ]
   }
@@ -1419,108 +1435,147 @@
               <p class="faq-aside__text">Зібрали відповіді на те, що клієнти питають найчастіше — до першого дзвінка та перед сесією.</p>
               <ul class="faq-aside__meta">
                 <li>
-                  <span class="faq-aside__meta-num">05</span>
-                  <span class="faq-aside__meta-label">ключових тем</span>
+                  <span class="faq-aside__meta-num">03</span>
+                  <span class="faq-aside__meta-label">категорії</span>
                 </li>
                 <li>
-                  <span class="faq-aside__meta-num">24/7</span>
-                  <span class="faq-aside__meta-label">консультація</span>
+                  <span class="faq-aside__meta-num">07</span>
+                  <span class="faq-aside__meta-label">питань</span>
                 </li>
               </ul>
               <a href="#contact" class="btn btn--primary btn--sm">Задати своє питання</a>
             </div>
           </aside>
           <div class="faq-panels reveal" data-faq-accordion>
-            <details class="faq-panel" open>
-              <summary class="faq-panel__trigger">
-                <span class="faq-panel__index" aria-hidden="true">01</span>
-                <span class="faq-panel__icon" aria-hidden="true">
+
+            <details class="faq-category" open>
+              <summary class="faq-category__trigger">
+                <span class="faq-category__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </span>
-                <span class="faq-panel__content">
-                  <span class="faq-panel__tag">Конфіденційність</span>
-                  <span class="faq-panel__question">Чи конфіденційна процедура?</span>
+                <span class="faq-category__content">
+                  <span class="faq-category__title">Процедура та конфіденційність</span>
+                  <span class="faq-category__count">3 питання</span>
                 </span>
-                <span class="faq-panel__chevron" aria-hidden="true">
+                <span class="faq-category__chevron" aria-hidden="true">
                   <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </summary>
-              <div class="faq-panel__body">
-                <p>Так. Уся інформація, отримана під час консультації та тестування, є суворо конфіденційною. Ми не передаємо дані третім особам без вашої згоди.</p>
+              <div class="faq-category__body">
+                <details class="faq-panel" open>
+                  <summary class="faq-panel__trigger faq-panel__trigger--nested">
+                    <span class="faq-panel__question">Чи конфіденційна процедура?</span>
+                    <span class="faq-panel__chevron" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </summary>
+                  <div class="faq-panel__body faq-panel__body--nested">
+                    <p>Так. Уся інформація, отримана під час консультації та тестування, є суворо конфіденційною. Ми не передаємо дані третім особам без вашої згоди.</p>
+                  </div>
+                </details>
+                <details class="faq-panel">
+                  <summary class="faq-panel__trigger faq-panel__trigger--nested">
+                    <span class="faq-panel__question">Скільки триває тестування?</span>
+                    <span class="faq-panel__chevron" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </summary>
+                  <div class="faq-panel__body faq-panel__body--nested">
+                    <p>Стандартна процедура займає від 1,5 до 3 годин залежно від кількості питань та складності кейсу. Час обговорюється на етапі консультації.</p>
+                  </div>
+                </details>
+                <details class="faq-panel">
+                  <summary class="faq-panel__trigger faq-panel__trigger--nested">
+                    <span class="faq-panel__question">Чи потрібна добровільна згода?</span>
+                    <span class="faq-panel__chevron" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </summary>
+                  <div class="faq-panel__body faq-panel__body--nested">
+                    <p>Так. Перевірка на поліграфі проводиться лише за добровільною письмовою згодою особи, яка тестується. Ми пояснюємо процедуру до початку і не продовжуємо без згоди.</p>
+                  </div>
+                </details>
               </div>
             </details>
-            <details class="faq-panel">
-              <summary class="faq-panel__trigger">
-                <span class="faq-panel__index" aria-hidden="true">02</span>
-                <span class="faq-panel__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                </span>
-                <span class="faq-panel__content">
-                  <span class="faq-panel__tag">Терміни</span>
-                  <span class="faq-panel__question">Скільки триває тестування?</span>
-                </span>
-                <span class="faq-panel__chevron" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-              </summary>
-              <div class="faq-panel__body">
-                <p>Стандартна процедура займає від 1,5 до 3 годин залежно від кількості питань та складності кейсу. Час обговорюється на етапі консультації.</p>
-              </div>
-            </details>
-            <details class="faq-panel">
-              <summary class="faq-panel__trigger">
-                <span class="faq-panel__index" aria-hidden="true">03</span>
-                <span class="faq-panel__icon" aria-hidden="true">
+
+            <details class="faq-category">
+              <summary class="faq-category__trigger">
+                <span class="faq-category__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 </span>
-                <span class="faq-panel__content">
-                  <span class="faq-panel__tag">Географія</span>
-                  <span class="faq-panel__question">Чи можна провести перевірку не в Києві?</span>
+                <span class="faq-category__content">
+                  <span class="faq-category__title">Формат і локація</span>
+                  <span class="faq-category__count">2 питання</span>
                 </span>
-                <span class="faq-panel__chevron" aria-hidden="true">
+                <span class="faq-category__chevron" aria-hidden="true">
                   <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </summary>
-              <div class="faq-panel__body">
-                <p>Так, ми проводимо виїзне тестування по всій Україні. Умови та вартість виїзду узгоджуються індивідуально.</p>
+              <div class="faq-category__body">
+                <details class="faq-panel">
+                  <summary class="faq-panel__trigger faq-panel__trigger--nested">
+                    <span class="faq-panel__question">Чи можна провести перевірку не в Києві?</span>
+                    <span class="faq-panel__chevron" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </summary>
+                  <div class="faq-panel__body faq-panel__body--nested">
+                    <p>Так, ми проводимо виїзне тестування по всій Україні. Умови та вартість виїзду узгоджуються індивідуально.</p>
+                  </div>
+                </details>
+                <details class="faq-panel">
+                  <summary class="faq-panel__trigger faq-panel__trigger--nested">
+                    <span class="faq-panel__question">Чи можна тестування англійською?</span>
+                    <span class="faq-panel__chevron" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </summary>
+                  <div class="faq-panel__body faq-panel__body--nested">
+                    <p>Так, тестування проводиться українською, російською та англійською мовами. Мову обираєте ви під час консультації — без перекладача, що допомагає зберегти конфіденційність.</p>
+                  </div>
+                </details>
               </div>
             </details>
-            <details class="faq-panel">
-              <summary class="faq-panel__trigger">
-                <span class="faq-panel__index" aria-hidden="true">04</span>
-                <span class="faq-panel__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                </span>
-                <span class="faq-panel__content">
-                  <span class="faq-panel__tag">Мови</span>
-                  <span class="faq-panel__question">Чи можна тестування англійською?</span>
-                </span>
-                <span class="faq-panel__chevron" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-              </summary>
-              <div class="faq-panel__body">
-                <p>Так, тестування проводиться українською, російською та англійською мовами. Мову обираєте ви під час консультації.</p>
-              </div>
-            </details>
-            <details class="faq-panel">
-              <summary class="faq-panel__trigger">
-                <span class="faq-panel__index" aria-hidden="true">05</span>
-                <span class="faq-panel__icon" aria-hidden="true">
+
+            <details class="faq-category">
+              <summary class="faq-category__trigger">
+                <span class="faq-category__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 </span>
-                <span class="faq-panel__content">
-                  <span class="faq-panel__tag">Документи</span>
-                  <span class="faq-panel__question">Чи надаються документи?</span>
+                <span class="faq-category__content">
+                  <span class="faq-category__title">Результати та підготовка</span>
+                  <span class="faq-category__count">2 питання</span>
                 </span>
-                <span class="faq-panel__chevron" aria-hidden="true">
+                <span class="faq-category__chevron" aria-hidden="true">
                   <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </summary>
-              <div class="faq-panel__body">
-                <p>Так, за потреби ми оформлюємо офіційний висновок. Формат документа залежить від цілей перевірки — HR, юридичний або судовий.</p>
+              <div class="faq-category__body">
+                <details class="faq-panel">
+                  <summary class="faq-panel__trigger faq-panel__trigger--nested">
+                    <span class="faq-panel__question">Чи надаються документи?</span>
+                    <span class="faq-panel__chevron" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </summary>
+                  <div class="faq-panel__body faq-panel__body--nested">
+                    <p>Так, за потреби ми оформлюємо офіційний висновок. Формат документа залежить від цілей перевірки — HR, юридичний або судовий.</p>
+                  </div>
+                </details>
+                <details class="faq-panel">
+                  <summary class="faq-panel__trigger faq-panel__trigger--nested">
+                    <span class="faq-panel__question">Як підготуватися до тестування?</span>
+                    <span class="faq-panel__chevron" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </summary>
+                  <div class="faq-panel__body faq-panel__body--nested">
+                    <p>Рекомендуємо висипатися, не вживати алкоголь і речовини, що впливають на стан, за добу до тесту. Детальні рекомендації — у нашій <a href="/pamyatka/">памʼятці для тестування</a>.</p>
+                  </div>
+                </details>
               </div>
             </details>
+
           </div>
         </div>
       </div>

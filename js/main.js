@@ -516,10 +516,21 @@
     });
   }
 
-  /* --- FAQ accordion (single open) --- */
-  const faqAccordion = document.querySelector('[data-faq-accordion]');
-  if (faqAccordion) {
-    const faqPanels = faqAccordion.querySelectorAll('.faq-panel');
+  /* --- FAQ nested accordion --- */
+  const faqRoot = document.querySelector('[data-faq-accordion]');
+  if (faqRoot) {
+    const faqCategories = faqRoot.querySelectorAll('.faq-category');
+    const faqPanels = faqRoot.querySelectorAll('.faq-panel');
+
+    faqCategories.forEach((category) => {
+      category.addEventListener('toggle', () => {
+        if (!category.open) return;
+        faqCategories.forEach((other) => {
+          if (other !== category) other.open = false;
+        });
+      });
+    });
+
     faqPanels.forEach((panel) => {
       panel.addEventListener('toggle', () => {
         if (!panel.open) return;
