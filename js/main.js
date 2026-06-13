@@ -855,4 +855,43 @@
     window.addEventListener('resize', updateMilitaryPromo, { passive: true });
     updateMilitaryPromo();
   }
+
+  /* --- Back to top --- */
+  if (!document.getElementById('backToTop')) {
+    const backToTop = document.createElement('button');
+    backToTop.type = 'button';
+    backToTop.className = 'back-to-top';
+    backToTop.id = 'backToTop';
+    backToTop.setAttribute('aria-label', 'Повернутись нагору');
+    backToTop.innerHTML = `
+      <span class="back-to-top__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </span>
+      <span class="back-to-top__text">Повернутись нагору</span>
+    `;
+    document.body.appendChild(backToTop);
+
+    function scrollToTop() {
+      const instant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (lenis) {
+        lenis.scrollTo(0, { duration: instant ? 0 : 1.1 });
+      } else {
+        window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
+      }
+    }
+
+    function updateBackToTop() {
+      backToTop.classList.toggle('back-to-top--visible', getScrollY() > 400);
+    }
+
+    backToTop.addEventListener('click', scrollToTop);
+
+    if (lenis) {
+      lenis.on('scroll', updateBackToTop);
+    } else {
+      window.addEventListener('scroll', updateBackToTop, { passive: true });
+    }
+
+    updateBackToTop();
+  }
 })();

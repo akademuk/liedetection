@@ -245,6 +245,7 @@ h1, h2, h3, h4 {
 .lang-picker__option:focus-visible,
 .quick-choice-card__cta:focus-visible,
 .sticky-cta__btn:focus-visible,
+.back-to-top:focus-visible,
 .military-promo:focus-visible,
 .military-modal__close:focus-visible,
 .theme-toggle:focus-visible,
@@ -697,6 +698,93 @@ h1, h2, h3, h4 {
   pointer-events: none;
 }
 
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  bottom: 88px;
+  right: 24px;
+  z-index: 905;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100vw - 48px);
+  padding: 10px 16px 10px 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--glass-border));
+  box-shadow: var(--shadow-md), 0 0 20px rgba(59, 130, 246, 0.15);
+  color: var(--accent);
+}
+
+.back-to-top__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+
+.back-to-top__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.back-to-top__text {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 156px;
+    right: 16px;
+    padding: 8px 12px 8px 8px;
+  }
+
+  body.sticky-cta--off .back-to-top {
+    bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-to-top__text {
+    display: none;
+  }
+
+  .back-to-top {
+    padding: 10px;
+    border-radius: 50%;
+  }
+}
+
 /* Military discount modal */
 .military-modal {
   position: fixed;
@@ -915,7 +1003,8 @@ body.military-modal-open {
 @media (prefers-reduced-motion: reduce) {
   .military-promo,
   .military-modal,
-  .military-modal__dialog {
+  .military-modal__dialog,
+  .back-to-top {
     transition: none;
   }
 }
@@ -958,13 +1047,13 @@ body.military-modal-open {
 }
 
 .logo__img--full {
-  height: 40px;
+  height: 120px;
 }
 
 .logo__img--mark {
-  display: none;
-  height: 40px;
-  width: 40px;
+  display: block;
+  height: 64px;
+  width: 64px;
 }
 
 /* Nav */
@@ -2382,7 +2471,7 @@ a.nav__link {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: top;
   display: block;
 }
 
