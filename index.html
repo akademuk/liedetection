@@ -473,49 +473,17 @@
             </div>
           </div>
           <div class="hero__visual reveal">
-            <div class="polygraph-panel equipment-card">
-            <div class="polygraph-panel__header">
-              <span class="polygraph-panel__dot"></span>
-              <span class="polygraph-panel__dot"></span>
-              <span class="polygraph-panel__dot"></span>
-              <span class="polygraph-panel__label">Аналіз сигналів</span>
-            </div>
-            <div class="polygraph-panel__chart">
-              <svg class="polygraph-wave" viewBox="0 0 400 120" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.8"/>
-                    <stop offset="50%" stop-color="#22D3EE" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.8"/>
-                  </linearGradient>
-                </defs>
-                <path class="polygraph-wave__line polygraph-wave__line--1" d="M0,60 Q50,30 100,60 T200,60 T300,45 T400,60" fill="none" stroke="url(#waveGrad)" stroke-width="2"/>
-                <path class="polygraph-wave__line polygraph-wave__line--2" d="M0,70 Q50,50 100,70 T200,65 T300,80 T400,65" fill="none" stroke="#22D3EE" stroke-width="1.5" opacity="0.5"/>
-                <path class="polygraph-wave__line polygraph-wave__line--3" d="M0,50 Q50,70 100,50 T200,55 T300,40 T400,55" fill="none" stroke="#3B82F6" stroke-width="1" opacity="0.3"/>
-              </svg>
-              <div class="polygraph-panel__grid"></div>
-            </div>
-            <div class="polygraph-panel__metrics">
-              <div class="metric-card">
-                <span class="metric-card__label">Дихання</span>
-                <span class="metric-card__value">Стабільно</span>
-                <div class="metric-card__bar"><span style="width:72%"></span></div>
-              </div>
-              <div class="metric-card">
-                <span class="metric-card__label">ШЗР</span>
-                <span class="metric-card__value">Норма</span>
-                <div class="metric-card__bar"><span style="width:58%"></span></div>
-              </div>
-              <div class="metric-card">
-                <span class="metric-card__label">Тиск</span>
-                <span class="metric-card__value">Базовий рівень</span>
-                <div class="metric-card__bar"><span style="width:85%"></span></div>
-              </div>
-            </div>
-            <div class="polygraph-panel__status">
-              <span class="status-dot"></span>
-              <span>Аналіз сигналів у реальному часі</span>
-            </div>
+            <div class="polygraph-panel polygraph-panel--video equipment-card">
+              <video
+                class="polygraph-panel__video"
+                src="assets/hero.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-label="Поліграфічне обладнання Lie Detection Group"
+              ></video>
             </div>
           </div>
         </div>

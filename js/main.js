@@ -31,6 +31,28 @@
     });
   }
 
+  /* --- Hero video loop --- */
+  const heroVideo = document.querySelector('.polygraph-panel__video');
+  if (heroVideo) {
+    heroVideo.loop = true;
+    heroVideo.muted = true;
+    heroVideo.setAttribute('playsinline', '');
+
+    const playHeroVideo = () => {
+      const playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    };
+
+    heroVideo.addEventListener('ended', () => {
+      heroVideo.currentTime = 0;
+      playHeroVideo();
+    });
+
+    playHeroVideo();
+  }
+
   /* --- Lenis Smooth Scroll --- */
   let lenis;
 
