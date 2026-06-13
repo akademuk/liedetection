@@ -655,4 +655,182 @@
     window.addEventListener('resize', updateStickyCta, { passive: true });
     updateStickyCta();
   }
+
+  /* --- Military discount promo + modal --- */
+  const MILITARY_PROMO_HTML = `
+    <button type="button" class="military-promo" id="militaryPromo" aria-haspopup="dialog" aria-controls="militaryModal" aria-expanded="false">
+      <span class="military-promo__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      <span class="military-promo__text">Військовим знижки</span>
+    </button>
+    <div class="military-modal" id="militaryModal" aria-hidden="true">
+      <div class="military-modal__overlay" data-military-close tabindex="-1"></div>
+      <div class="military-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="militaryModalTitle">
+        <button type="button" class="military-modal__close" data-military-close aria-label="Закрити">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="military-modal__scroll" data-lenis-prevent>
+        <form class="contact-form military-form" id="militaryForm" novalidate>
+          <span class="military-form__badge">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 4.8L20 8l-4 3.9.9 5.6L12 15.8 7.1 17.5 8 11.9 4 8l5.6-1.2L12 2z"/></svg>
+            Спеціальна пропозиція
+          </span>
+          <h2 class="military-form__title" id="militaryModalTitle">Знижки для військових</h2>
+          <p class="military-form__lead">Заповніть форму — ми звʼяжемося з вами та повідомимо умови знижки для ЗСУ, Тероборони та ветеранів.</p>
+          <div class="form-group">
+            <label for="militaryName" class="form-label">Імʼя</label>
+            <input type="text" id="militaryName" name="name" class="form-input" placeholder="Ваше імʼя" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="militaryPhone" class="form-label">Телефон</label>
+            <input type="tel" id="militaryPhone" name="phone" class="form-input" placeholder="+38 0XX XXX XX XX" required autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label for="militaryStatus" class="form-label">Статус</label>
+            <select id="militaryStatus" name="status" class="form-input form-select" required>
+              <option value="">Оберіть статус</option>
+              <option value="zsu">Військовослужбовець ЗСУ</option>
+              <option value="terdef">Бійці Тероборони</option>
+              <option value="veteran">Ветеран</option>
+              <option value="family">Член родини військового</option>
+              <option value="other">Інше</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="militaryMessage" class="form-label">Коментар (необовʼязково)</label>
+            <textarea id="militaryMessage" name="message" class="form-input form-textarea" rows="3" placeholder="Коротко опишіть запит"></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg btn--full">Отримати знижку</button>
+          <p class="contact-form__microcopy">Передзвонимо, уточнимо деталі та підтвердимо розмір знижки.</p>
+          <p class="contact-form__privacy">Надсилаючи форму, ви погоджуєтесь з <a href="/#privacy">політикою конфіденційності</a>.</p>
+        </form>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', MILITARY_PROMO_HTML);
+
+  const militaryPromo = document.getElementById('militaryPromo');
+  const militaryModal = document.getElementById('militaryModal');
+  const militaryForm = document.getElementById('militaryForm');
+  const militaryScroll = militaryModal?.querySelector('.military-modal__scroll');
+  let militaryLastFocus = null;
+
+  function setMilitaryModalOpen(isOpen) {
+    document.documentElement.classList.toggle('military-modal-open', isOpen);
+    document.body.classList.toggle('military-modal-open', isOpen);
+  }
+
+  function openMilitaryModal() {
+    if (!militaryModal || !militaryPromo) return;
+
+    militaryLastFocus = document.activeElement;
+    militaryModal.classList.add('military-modal--open');
+    militaryModal.setAttribute('aria-hidden', 'false');
+    militaryPromo.setAttribute('aria-expanded', 'true');
+    setMilitaryModalOpen(true);
+    lenis?.stop?.();
+
+    const firstField = militaryForm?.querySelector('#militaryName');
+    window.requestAnimationFrame(() => firstField?.focus());
+  }
+
+  function closeMilitaryModal() {
+    if (!militaryModal || !militaryPromo) return;
+
+    militaryModal.classList.remove('military-modal--open');
+    militaryModal.setAttribute('aria-hidden', 'true');
+    militaryPromo.setAttribute('aria-expanded', 'false');
+    setMilitaryModalOpen(false);
+    lenis?.start?.();
+
+    if (militaryLastFocus && typeof militaryLastFocus.focus === 'function') {
+      militaryLastFocus.focus();
+    } else {
+      militaryPromo.focus();
+    }
+  }
+
+  [militaryModal, militaryScroll].forEach((el) => {
+    if (!el) return;
+    el.addEventListener('wheel', (e) => e.stopPropagation(), { passive: true });
+    el.addEventListener('touchmove', (e) => e.stopPropagation(), { passive: true });
+  });
+
+  militaryPromo?.addEventListener('click', openMilitaryModal);
+
+  militaryModal?.querySelectorAll('[data-military-close]').forEach((el) => {
+    el.addEventListener('click', closeMilitaryModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && militaryModal?.classList.contains('military-modal--open')) {
+      closeMilitaryModal();
+    }
+  });
+
+  militaryModal?.addEventListener('click', (e) => {
+    if (e.target === militaryModal.querySelector('.military-modal__overlay')) {
+      closeMilitaryModal();
+    }
+  });
+
+  if (militaryForm) {
+    militaryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = militaryForm.querySelector('#militaryName');
+      const phone = militaryForm.querySelector('#militaryPhone');
+      const status = militaryForm.querySelector('#militaryStatus');
+
+      if (!name.value.trim() || !phone.value.trim() || !status.value) {
+        return;
+      }
+
+      const btn = militaryForm.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = 'Заявку надіслано ✓';
+      btn.disabled = true;
+      btn.style.opacity = '0.8';
+
+      window.setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.opacity = '';
+        militaryForm.reset();
+        closeMilitaryModal();
+      }, 2500);
+    });
+  }
+
+  /* Hide military promo near contact/footer on mobile (same as sticky CTA logic) */
+  function updateMilitaryPromo() {
+    if (!militaryPromo) return;
+
+    if (window.innerWidth > 768) {
+      militaryPromo.classList.remove('military-promo--hidden');
+      return;
+    }
+
+    const hideZone = contactSection || footer;
+    if (!hideZone) return;
+
+    const rect = hideZone.getBoundingClientRect();
+    const viewportH = window.innerHeight;
+    const nearContact = rect.top < viewportH - 72;
+
+    militaryPromo.classList.toggle('military-promo--hidden', nearContact);
+  }
+
+  if (militaryPromo) {
+    if (lenis) {
+      lenis.on('scroll', updateMilitaryPromo);
+    } else {
+      window.addEventListener('scroll', updateMilitaryPromo, { passive: true });
+    }
+    window.addEventListener('resize', updateMilitaryPromo, { passive: true });
+    updateMilitaryPromo();
+  }
 })();
