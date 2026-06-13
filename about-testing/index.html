@@ -142,9 +142,22 @@
               <li><a href="/#services" class="drawer-nav__link">Для бізнесу</a></li>
               <li><a href="/kontakty/" class="drawer-nav__link">Приватним клієнтам</a></li>
               <li><a href="/tseny/" class="drawer-nav__link">Ціни</a></li>
+              <li class="drawer-nav__group">
+                <button type="button" class="drawer-nav__toggle" aria-expanded="false" aria-controls="drawerCompany">
+                  Компанія
+                  <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <ul class="drawer-nav__sub" id="drawerCompany">
+                  <li><a href="/o-nas/" class="drawer-nav__sublink">Про компанію</a></li>
+                  <li><a href="/nashi-preimuschestva/" class="drawer-nav__sublink">Наші переваги</a></li>
+                  <li><a href="/#team" class="drawer-nav__sublink">Команда</a></li>
+                  <li><a href="/porivnyannya-z-poligrafologom-odinakom/" class="drawer-nav__sublink">Порівняння з одинаком</a></li>
+                  <li><a href="/porivnyannya-zi-shtatnym-poligrafologom/" class="drawer-nav__sublink">Порівняння зі штатним</a></li>
+                  <li><a href="/kontakty/" class="drawer-nav__sublink">Контакти</a></li>
+                </ul>
+              </li>
               <li><a href="/about-testing/" class="drawer-nav__link" aria-current="page">Як проходить перевірка</a></li>
               <li><a href="/faq/" class="drawer-nav__link">FAQ</a></li>
-              <li><a href="/kontakty/" class="drawer-nav__link">Контакти</a></li>
               <li><a href="/article/" class="drawer-nav__link">Статті</a></li>
             </ul>
             <div class="drawer-cta">
@@ -203,6 +216,35 @@
             <li class="nav__item"><a href="/kontakty/" class="nav__link">Приватним клієнтам</a></li>
             <li class="nav__item"><a href="/tseny/" class="nav__link">Ціни</a></li>
             <li class="nav__item nav__dropdown nav__dropdown--mega">
+              <button type="button" class="nav__link nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="companyMenu">
+                Компанія
+                <svg class="nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="mega-menu nav-panel nav-panel--mega nav-panel--company" id="companyMenu" role="menu">
+                <div class="nav-panel__sheet">
+                <div class="mega-menu__grid mega-menu__grid--compact">
+                  <div class="mega-menu__col">
+                    <span class="mega-menu__title">Про нас</span>
+                    <ul class="mega-menu__links">
+                      <li><a href="/o-nas/" class="mega-menu__link" role="menuitem">Про компанію</a></li>
+                      <li><a href="/nashi-preimuschestva/" class="mega-menu__link" role="menuitem">Наші переваги</a></li>
+                      <li><a href="/#team" class="mega-menu__link" role="menuitem">Команда</a></li>
+                      <li><a href="/kontakty/" class="mega-menu__link" role="menuitem">Контакти</a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu__col">
+                    <span class="mega-menu__title">Порівняння</span>
+                    <ul class="mega-menu__links">
+                      <li><a href="/porivnyannya-z-poligrafologom-odinakom/" class="mega-menu__link" role="menuitem">З поліграфологом-одинаком</a></li>
+                      <li><a href="/porivnyannya-zi-shtatnym-poligrafologom/" class="mega-menu__link" role="menuitem">Зі штатним поліграфологом</a></li>
+                      <li><a href="/#comparison" class="mega-menu__link" role="menuitem">Усі порівняння</a></li>
+                    </ul>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </li>
+            <li class="nav__item nav__dropdown nav__dropdown--mega">
               <button type="button" class="nav__link nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="testingMenu">
                 Про тестування
                 <svg class="nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -245,7 +287,6 @@
                 </div>
               </div>
             </li>
-            <li class="nav__item"><a href="/kontakty/" class="nav__link">Контакти</a></li>
           </ul>
         </nav>
 
