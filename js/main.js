@@ -408,9 +408,11 @@
         '.legality-section',
         '.limits-section',
         '.cheat-section',
+        '.services-section',
         '.legality-aside',
         '.limits-aside',
         '.cheat-aside',
+        '.services-aside',
         '.article-page-layout',
         '.blog-grid',
         '.contact-page-layout',
@@ -784,17 +786,58 @@
     });
   }
 
-  /* --- Sticky Mobile CTA --- */
+  /* --- Sticky Mobile CTA + utility dock --- */
   const stickyCta = document.getElementById('stickyCta');
   const contactSection = document.getElementById('contact');
   const footer = document.querySelector('.footer');
 
-  function updateStickyCta() {
-    if (!stickyCta || window.innerWidth > 768) {
+  function setupMobileDock() {
+    if (document.getElementById('mobileDock')) return;
+
+    const dock = document.createElement('div');
+    dock.id = 'mobileDock';
+    dock.className = 'mobile-dock';
+    dock.setAttribute('aria-label', 'Додаткові дії');
+
+    if (stickyCta?.parentNode) {
+      stickyCta.parentNode.insertBefore(dock, stickyCta);
+    } else {
+      document.body.appendChild(dock);
+    }
+
+    [
+      document.getElementById('militaryPromo'),
+      document.querySelector('.blackout-fix'),
+      document.getElementById('backToTop'),
+    ].filter(Boolean).forEach((el) => dock.appendChild(el));
+
+    const blackoutText = dock.querySelector('.blackout-fix__text');
+    if (blackoutText && !blackoutText.dataset.fullText) {
+      blackoutText.dataset.fullText = blackoutText.textContent.trim();
+    }
+  }
+
+  function syncMobileDockLabels() {
+    const blackoutText = document.querySelector('.blackout-fix__text');
+    if (!blackoutText?.dataset.fullText) return;
+    blackoutText.textContent = window.innerWidth <= 768
+      ? 'Блекаут'
+      : blackoutText.dataset.fullText;
+  }
+
+  function updateMobileBottomBar() {
+    const mobileDock = document.getElementById('mobileDock');
+    const isMobile = window.innerWidth <= 768;
+
+    if (!isMobile) {
       document.body.classList.remove('sticky-cta--off');
       stickyCta?.classList.remove('sticky-cta--hidden');
+      mobileDock?.classList.remove('mobile-dock--hidden');
+      syncMobileDockLabels();
       return;
     }
+
+    syncMobileDockLabels();
 
     const hideZone = contactSection || footer;
     if (!hideZone) return;
@@ -803,18 +846,19 @@
     const viewportH = window.innerHeight;
     const nearContact = rect.top < viewportH - 72;
 
-    stickyCta.classList.toggle('sticky-cta--hidden', nearContact);
+    stickyCta?.classList.toggle('sticky-cta--hidden', nearContact);
     document.body.classList.toggle('sticky-cta--off', nearContact);
+    mobileDock?.classList.toggle('mobile-dock--hidden', nearContact);
   }
 
-  if (stickyCta) {
+  function bindMobileBottomBarScroll() {
     if (lenis) {
-      lenis.on('scroll', updateStickyCta);
+      lenis.on('scroll', updateMobileBottomBar);
     } else {
-      window.addEventListener('scroll', updateStickyCta, { passive: true });
+      window.addEventListener('scroll', updateMobileBottomBar, { passive: true });
     }
-    window.addEventListener('resize', updateStickyCta, { passive: true });
-    updateStickyCta();
+    window.addEventListener('resize', updateMobileBottomBar, { passive: true });
+    updateMobileBottomBar();
   }
 
   /* --- Military discount promo + modal --- */
@@ -823,7 +867,7 @@
       <span class="military-promo__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </span>
-      <span class="military-promo__text">Військовим знижки</span>
+      <span class="military-promo__text">Знижки ЗСУ</span>
     </button>
     <div class="military-modal" id="militaryModal" aria-hidden="true">
       <div class="military-modal__overlay" data-military-close tabindex="-1"></div>
@@ -966,35 +1010,6 @@
     });
   }
 
-  /* Hide military promo near contact/footer on mobile (same as sticky CTA logic) */
-  function updateMilitaryPromo() {
-    if (!militaryPromo) return;
-
-    if (window.innerWidth > 768) {
-      militaryPromo.classList.remove('military-promo--hidden');
-      return;
-    }
-
-    const hideZone = contactSection || footer;
-    if (!hideZone) return;
-
-    const rect = hideZone.getBoundingClientRect();
-    const viewportH = window.innerHeight;
-    const nearContact = rect.top < viewportH - 72;
-
-    militaryPromo.classList.toggle('military-promo--hidden', nearContact);
-  }
-
-  if (militaryPromo) {
-    if (lenis) {
-      lenis.on('scroll', updateMilitaryPromo);
-    } else {
-      window.addEventListener('scroll', updateMilitaryPromo, { passive: true });
-    }
-    window.addEventListener('resize', updateMilitaryPromo, { passive: true });
-    updateMilitaryPromo();
-  }
-
   /* --- Back to top --- */
   if (!document.getElementById('backToTop')) {
     const backToTop = document.createElement('button');
@@ -1006,7 +1021,7 @@
       <span class="back-to-top__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
       </span>
-      <span class="back-to-top__text">Повернутись нагору</span>
+      <span class="back-to-top__text">Вгору</span>
     `;
     document.body.appendChild(backToTop);
 
@@ -1033,4 +1048,100 @@
 
     updateBackToTop();
   }
+
+  initBlackoutInfo(lenis);
+  setupMobileDock();
+  syncMobileDockLabels();
+  bindMobileBottomBarScroll();
 })();
+
+function initBlackoutInfo(lenis) {
+  let blackoutBtn = document.querySelector('.blackout-fix');
+  if (!blackoutBtn) return;
+
+  if (blackoutBtn.tagName !== 'BUTTON') {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = blackoutBtn.className;
+    button.innerHTML = blackoutBtn.innerHTML;
+    button.setAttribute(
+      'aria-label',
+      'Працюємо під час блекауту — натисніть, щоб дізнатися більше'
+    );
+    blackoutBtn.replaceWith(button);
+    blackoutBtn = button;
+  }
+
+  if (document.getElementById('blackoutModal')) {
+    wireBlackoutModal(blackoutBtn, lenis);
+    return;
+  }
+
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="blackout-modal" id="blackoutModal" aria-hidden="true">
+      <div class="blackout-modal__overlay" data-blackout-close tabindex="-1"></div>
+      <div class="blackout-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="blackoutModalTitle">
+        <button type="button" class="blackout-modal__close" data-blackout-close aria-label="Закрити">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <span class="blackout-modal__badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2L4 14h7l-1 8 10-14h-7l0-6z" fill="currentColor"/>
+          </svg>
+        </span>
+        <h2 class="blackout-modal__title" id="blackoutModalTitle">Працюємо під час блекаутів</h2>
+        <p class="blackout-modal__text">У нашому офісі є резервне живлення, тому перевірки на поліграфі проводяться навіть під час відключень світла.</p>
+        <p class="blackout-modal__text">Запис і консультації доступні за звичайним графіком: <strong>09:00–21:00, без вихідних</strong>.</p>
+        <button type="button" class="btn btn--primary btn--full" data-blackout-close>Зрозуміло</button>
+      </div>
+    </div>
+  `);
+
+  wireBlackoutModal(blackoutBtn, lenis);
+}
+
+function wireBlackoutModal(blackoutBtn, lenis) {
+  const modal = document.getElementById('blackoutModal');
+  if (!modal || blackoutBtn.dataset.blackoutWired) return;
+
+  blackoutBtn.dataset.blackoutWired = '1';
+  let lastFocus = null;
+
+  function setModalOpen(isOpen) {
+    document.documentElement.classList.toggle('blackout-modal-open', isOpen);
+    document.body.classList.toggle('blackout-modal-open', isOpen);
+  }
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.classList.add('blackout-modal--open');
+    modal.setAttribute('aria-hidden', 'false');
+    setModalOpen(true);
+    lenis?.stop?.();
+    modal.querySelector('.blackout-modal__dialog .btn')?.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('blackout-modal--open');
+    modal.setAttribute('aria-hidden', 'true');
+    setModalOpen(false);
+    lenis?.start?.();
+    if (lastFocus && typeof lastFocus.focus === 'function') {
+      lastFocus.focus();
+    } else {
+      blackoutBtn.focus();
+    }
+  }
+
+  blackoutBtn.addEventListener('click', openModal);
+
+  modal.querySelectorAll('[data-blackout-close]').forEach((el) => {
+    el.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('blackout-modal--open')) {
+      closeModal();
+    }
+  });
+}

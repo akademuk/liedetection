@@ -75,6 +75,8 @@
   --topbar-h: 48px;
   --header-main-h: 72px;
   --site-header-h: calc(var(--topbar-h) + var(--header-main-h));
+  --mobile-sticky-cta-h: 72px;
+  --mobile-dock-h: 52px;
 }
 
 /* --- Light Theme --- */
@@ -291,6 +293,7 @@ h1, h2, h3, h4 {
 .sticky-cta__btn:focus-visible,
 .back-to-top:focus-visible,
 .military-promo:focus-visible,
+.blackout-fix:focus-visible,
 .military-modal__close:focus-visible,
 .theme-toggle:focus-visible,
 .burger:focus-visible,
@@ -649,7 +652,19 @@ h1, h2, h3, h4 {
   box-shadow: var(--shadow-md), 0 0 24px rgba(34, 197, 94, 0.12);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  pointer-events: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blackout-fix:hover {
+  border-color: rgba(34, 197, 94, 0.55);
+  box-shadow: var(--shadow-md), 0 0 28px rgba(34, 197, 94, 0.18);
+}
+
+.blackout-fix:active {
+  transform: scale(0.98);
 }
 
 .blackout-fix__icon {
@@ -680,6 +695,120 @@ h1, h2, h3, h4 {
 @keyframes blackoutPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.25); }
   50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+}
+
+/* Blackout info modal */
+.blackout-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.blackout-modal--open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.blackout-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 10, 15, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.blackout-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 420px);
+  margin: auto;
+  padding: 28px 24px 24px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  box-shadow: var(--shadow-md), 0 0 32px rgba(34, 197, 94, 0.1);
+  text-align: center;
+}
+
+.blackout-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.blackout-modal__close:hover {
+  background: rgba(59, 130, 246, 0.08);
+  color: var(--text-primary);
+}
+
+.blackout-modal__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.blackout-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--accent-success);
+}
+
+.blackout-modal__badge svg {
+  width: 24px;
+  height: 24px;
+}
+
+.blackout-modal__title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.blackout-modal__text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.blackout-modal__text:last-of-type {
+  margin-bottom: 20px;
+}
+
+.blackout-modal__text strong {
+  color: var(--text-primary);
+}
+
+html.blackout-modal-open,
+body.blackout-modal-open {
+  overflow: hidden;
 }
 
 /* Military discount promo badge */
@@ -815,6 +944,12 @@ h1, h2, h3, h4 {
 
   body.sticky-cta--off .back-to-top {
     bottom: 80px;
+  }
+
+  .mobile-dock .back-to-top {
+    bottom: auto;
+    right: auto;
+    padding: 8px 6px;
   }
 }
 
@@ -1016,24 +1151,6 @@ body.military-modal-open {
 }
 
 @media (max-width: 768px) {
-  .military-promo {
-    bottom: 88px;
-    right: 16px;
-    padding: 8px 14px 8px 10px;
-  }
-
-  body.sticky-cta--off .military-promo {
-    bottom: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .military-promo__text {
-    font-size: 12px;
-    white-space: normal;
-    max-width: 110px;
-  }
-
   .military-modal__dialog {
     padding: 36px 28px 32px;
     border-radius: 20px;
@@ -1327,6 +1444,20 @@ a.nav__link {
   color: var(--accent);
   margin-bottom: 12px;
   padding: 0 10px;
+}
+
+a.mega-menu__title--link {
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a.mega-menu__title--link:hover {
+  opacity: 0.82;
+}
+
+a.mega-menu__title--link + .mega-menu__title--link,
+a.mega-menu__title--link + .mega-menu__title {
+  margin-top: 16px;
 }
 
 .mega-menu__links {
@@ -2054,6 +2185,7 @@ a.nav__link {
 .services-layout {
   display: flex;
   flex-direction: column;
+  padding: 64px 0;
 }
 
 .services-aside-col {
@@ -2265,6 +2397,26 @@ a.nav__link {
   transform: translateX(2px);
 }
 
+.service-card__note {
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+.services-aside__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
 /* Desktop: sticky left inside column + scrolling 2-col cards */
 @media (min-width: 1024px) {
   .services-layout {
@@ -2281,9 +2433,9 @@ a.nav__link {
 
   .services-aside {
     position: sticky;
-    top: 0;
-    max-height: calc(100vh - var(--site-header-h));
-    padding: 80px 40px 80px 48px;
+    top: 72px;
+    max-height: 100vh;
+    padding: 0 40px 0 48px;
     justify-content: center;
     gap: 40px;
   }
@@ -2293,7 +2445,7 @@ a.nav__link {
     min-width: 0;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    padding: 80px 48px 120px 40px;
+    padding: 0 48px 0 40px;
   }
 
   .service-card {
@@ -6463,13 +6615,126 @@ a.nav__link {
   background: var(--btn-primary-hover);
 }
 
+/* Mobile utility dock — military / blackout / back-to-top above sticky CTA */
+.mobile-dock {
+  display: contents;
+}
+
 @media (max-width: 768px) {
   body {
-    padding-bottom: 80px;
+    padding-bottom: calc(var(--mobile-sticky-cta-h) + var(--mobile-dock-h) + env(safe-area-inset-bottom, 0px) + 4px);
   }
 
   body.sticky-cta--off {
+    padding-bottom: calc(var(--mobile-dock-h) + env(safe-area-inset-bottom, 0px) + 8px);
+  }
+
+  body.nav-drawer-open {
     padding-bottom: 0;
+  }
+
+  .mobile-dock {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--mobile-sticky-cta-h) + env(safe-area-inset-bottom, 0px));
+    z-index: 945;
+    padding: 8px 12px;
+    background: color-mix(in srgb, var(--bg-main) 92%, transparent);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  body.sticky-cta--off .mobile-dock {
+    bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-dock--hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mobile-dock .military-promo,
+  .mobile-dock .blackout-fix,
+  .mobile-dock .back-to-top {
+    position: static;
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 0;
+    transform: none;
+    visibility: visible;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 6px;
+    border-radius: 12px;
+    gap: 6px;
+  }
+
+  .mobile-dock .military-promo {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-dock .military-promo--hidden {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-dock .blackout-fix {
+    pointer-events: auto;
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .mobile-dock .back-to-top {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .mobile-dock .back-to-top.back-to-top--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-dock .military-promo__text,
+  .mobile-dock .blackout-fix__text,
+  .mobile-dock .back-to-top__text {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .mobile-dock .military-promo__icon,
+  .mobile-dock .blackout-fix__icon,
+  .mobile-dock .back-to-top__icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .mobile-dock .military-promo__icon svg,
+  .mobile-dock .blackout-fix__icon svg,
+  .mobile-dock .back-to-top__icon svg {
+    width: 15px;
+    height: 15px;
   }
 
   .sticky-cta {
@@ -6477,11 +6742,27 @@ a.nav__link {
   }
 
   .blackout-fix {
-    bottom: 88px;
+    bottom: auto;
+    left: auto;
   }
 
   body.sticky-cta--off .blackout-fix {
-    bottom: 16px;
+    bottom: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-dock .military-promo__text,
+  .mobile-dock .blackout-fix__text,
+  .mobile-dock .back-to-top__text {
+    display: none;
+  }
+
+  .mobile-dock .military-promo,
+  .mobile-dock .blackout-fix,
+  .mobile-dock .back-to-top {
+    padding: 10px;
+    border-radius: 12px;
   }
 }
 
@@ -6735,7 +7016,22 @@ a.nav__link {
   }
 
   .drawer-nav__group--open > .drawer-nav__sub {
-    max-height: 520px;
+    max-height: 720px;
+  }
+
+  .drawer-nav__group--nested > .drawer-nav__toggle--nested {
+    min-height: 44px;
+    padding: 10px 14px 10px 22px;
+    font-size: 15px;
+  }
+
+  .drawer-nav__sub--nested {
+    padding-left: 12px;
+  }
+
+  .drawer-nav__sub--nested .drawer-nav__sublink {
+    padding-left: 30px;
+    font-size: 14px;
   }
 
   .drawer-nav__sublink {
@@ -8618,6 +8914,7 @@ a.nav__link {
   border-radius: 20px;
   background: var(--bg-card);
   border: 1px solid var(--border);
+  margin-bottom: 32px;
 }
 
 .article-prose > :first-child {
@@ -9752,6 +10049,19 @@ a.nav__link {
   .pamyatka-split,
   .pamyatka-requirements {
     grid-template-columns: 1fr;
+  }
+
+  .military-modal__scroll {
+    padding: 0 14px 0 0;
+  }
+
+  .military-modal__scroll form {
+    padding: 0;
+  }
+
+  .military-modal__dialog {
+    padding-right: 14px;
+    padding-top: 80px;
   }
 
   .pamyatka-section__head {
@@ -11348,7 +11658,7 @@ a.nav__link {
 
 .legality-aside {
   position: sticky;
-  top: calc(var(--site-header-h, 72px) + 24px);
+  top: 72px;
 }
 
 .legality-aside-nav {
@@ -11580,6 +11890,7 @@ a.nav__link {
 .legality-banner--info {
   background: rgba(59, 130, 246, 0.06);
   border: 1px solid rgba(59, 130, 246, 0.15);
+  margin-bottom: 32px;
 }
 
 .legality-banner--info .legality-banner__icon {
@@ -12315,6 +12626,33 @@ a.nav__link {
 
   .adv-stat {
     padding: 18px 16px;
+  }
+}
+
+  .about-body {
+    padding: 48px 0 64px;
+  }
+}
+
+/* ============================================
+   Services Page (/poslugy/)
+   ============================================ */
+.page-services main > .section:first-of-type {
+  padding-top: calc(var(--site-header-h, 72px) + 32px);
+  padding-bottom: 48px;
+}
+
+.page-services .section--services {
+  margin-top: 0;
+}
+
+.page-services .section--price-cta {
+  padding-top: 72px;
+}
+
+@media (max-width: 1023px) {
+  .page-services .services-aside__actions {
+    margin-top: 16px;
   }
 }
 
