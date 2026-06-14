@@ -10,24 +10,44 @@
   const themeToggle = document.getElementById('themeToggle');
   const html = document.documentElement;
   const STORAGE_KEY = 'ldg-theme';
+  const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function getSystemTheme() {
+    return colorSchemeQuery.matches ? 'dark' : 'light';
+  }
+
+  function getStoredTheme() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored === 'light' || stored === 'dark' ? stored : null;
+  }
 
   function getPreferredTheme() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return stored;
-    return 'dark';
+    return getStoredTheme() ?? getSystemTheme();
   }
 
-  function setTheme(theme) {
+  function setTheme(theme, persist) {
     html.setAttribute('data-theme', theme);
-    localStorage.setItem(STORAGE_KEY, theme);
+    if (persist) {
+      localStorage.setItem(STORAGE_KEY, theme);
+    }
   }
 
-  setTheme(getPreferredTheme());
+  function applyTheme() {
+    setTheme(getPreferredTheme(), false);
+  }
+
+  applyTheme();
+
+  colorSchemeQuery.addEventListener('change', () => {
+    if (!getStoredTheme()) {
+      setTheme(getSystemTheme(), false);
+    }
+  });
 
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
       const current = html.getAttribute('data-theme');
-      setTheme(current === 'dark' ? 'light' : 'dark');
+      setTheme(current === 'dark' ? 'light' : 'dark', true);
     });
   }
 
@@ -53,17 +73,29 @@
     playHeroVideo();
   }
 
-  /* --- Lenis Smooth Scroll --- */
+  /* --- Lenis Smooth Scroll (disabled in Safari / iOS) --- */
   let lenis;
 
-  if (typeof Lenis !== 'undefined') {
+  function shouldUseLenis() {
+    if (typeof Lenis === 'undefined') return false;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isSafari = /Safari/.test(ua) && !/Chrome|CriOS|Chromium|Edg|OPR|FxiOS/.test(ua);
+
+    return !isSafari && !isIOS;
+  }
+
+  if (shouldUseLenis()) {
     lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
 
-    if (typeof ScrollTrigger !== 'undefined') {
+    if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
@@ -190,28 +222,44 @@
     });
   });
 
+  /* Drawer must live on body — .header backdrop-filter clips position:fixed children */
+  if (navOverlay && navDrawer && navOverlay.parentElement !== document.body) {
+    document.body.appendChild(navOverlay);
+    document.body.appendChild(navDrawer);
+  }
+
+  navDrawer?.setAttribute('data-lenis-prevent', '');
+  navOverlay?.setAttribute('data-lenis-prevent', '');
+
   function openDrawer() {
     if (!nav) return;
     closeAllLangPickers();
+    closeAllDropdowns();
     nav.classList.add('nav--open');
+    document.body.classList.add('nav-drawer-open');
     burger?.classList.add('burger--active');
     burger?.setAttribute('aria-expanded', 'true');
     navOverlay?.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     header?.classList.remove('site-header--hidden');
+    lenis?.stop?.();
   }
 
   function closeDrawer() {
     if (!nav) return;
     nav.classList.remove('nav--open');
+    document.body.classList.remove('nav-drawer-open');
     burger?.classList.remove('burger--active');
     burger?.setAttribute('aria-expanded', 'false');
     navOverlay?.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    lenis?.start?.();
   }
 
   if (burger && nav) {
-    burger.addEventListener('click', () => {
+    burger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       if (nav.classList.contains('nav--open')) {
         closeDrawer();
       } else {
@@ -338,68 +386,150 @@
   });
 
   /* --- GSAP Scroll Animations --- */
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.utils.toArray('.reveal').forEach((el, i) => {
-      if (el.closest('.team-slider, .reviews-slider, .section--services')) return;
-
-      const isLiftCard = el.matches('.quick-choice-card, .when-card');
-      const animProps = {
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out',
-        delay: i % 4 * 0.08,
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        },
-      };
-
-      if (isLiftCard) {
-        gsap.to(el, animProps);
-      } else {
-        gsap.to(el, { ...animProps, y: 0 });
-      }
-    });
-
-    /* Hero entrance */
-    const heroReveals = document.querySelectorAll('.hero .reveal');
-    if (heroReveals.length) {
-      gsap.to(heroReveals, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: 'power3.out',
-        delay: 0.2,
-      });
-    }
-
-    /* Subtle parallax on hero glows */
-    const glows = document.querySelectorAll('.hero__glow');
-    if (glows.length) {
-      glows.forEach((glow, i) => {
-        gsap.to(glow, {
-          y: i % 2 === 0 ? 60 : -40,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.hero',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      });
-    }
-
-  } else {
-    /* Fallback: show all reveals without GSAP */
+  function showAllReveals() {
     document.querySelectorAll('.reveal').forEach((el) => {
       el.style.opacity = '1';
       el.style.transform = 'none';
     });
+  }
+
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      showAllReveals();
+    } else {
+      const REVEAL_EXCLUDE = '.team-slider, .reviews-slider, .section--services';
+      const HERO_SELECTORS = '.hero, .article-page-hero, .faq-page-hero, .contact-page-hero, .price-page-hero';
+      const REVEAL_GROUP_SELECTORS = [
+        '.section',
+        '.legality-section',
+        '.limits-section',
+        '.cheat-section',
+        '.legality-aside',
+        '.limits-aside',
+        '.cheat-aside',
+        '.article-page-layout',
+        '.blog-grid',
+        '.contact-page-layout',
+        '.legal-doc',
+      ].join(', ');
+
+      function isExcludedReveal(el) {
+        return !!el.closest(REVEAL_EXCLUDE);
+      }
+
+      function isHeroReveal(el) {
+        return !!el.closest(HERO_SELECTORS);
+      }
+
+      function getRevealGroup(el) {
+        return el.closest(REVEAL_GROUP_SELECTORS) || el;
+      }
+
+      function animateRevealGroup(trigger, reveals) {
+        if (!reveals.length) return;
+
+        const liftCards = reveals.filter((el) => el.matches('.quick-choice-card, .when-card'));
+        const fadeUps = reveals.filter((el) => !el.matches('.quick-choice-card, .when-card'));
+
+        if (liftCards.length) {
+          gsap.to(liftCards, {
+            opacity: 1,
+            duration: 0.75,
+            stagger: 0.08,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          });
+        }
+
+        if (fadeUps.length) {
+          gsap.to(fadeUps, {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.08,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          });
+        }
+      }
+
+      const heroReveals = gsap.utils.toArray('.reveal').filter(
+        (el) => isHeroReveal(el) && !isExcludedReveal(el)
+      );
+      if (heroReveals.length) {
+        gsap.to(heroReveals, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.1,
+          ease: 'power3.out',
+          delay: 0.15,
+        });
+      }
+
+      const groupedReveals = new Map();
+      gsap.utils.toArray('.reveal').forEach((el) => {
+        if (isExcludedReveal(el) || isHeroReveal(el)) return;
+
+        const group = getRevealGroup(el);
+        if (!groupedReveals.has(group)) groupedReveals.set(group, []);
+        groupedReveals.get(group).push(el);
+      });
+
+      groupedReveals.forEach((reveals, trigger) => {
+        animateRevealGroup(trigger, reveals);
+      });
+
+      /* Compare teaser cards (no .reveal class) */
+      gsap.utils.toArray('.compare-teaser-card, .compare-teaser-hub').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 24,
+          scale: 0.98,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
+          },
+        });
+      });
+
+      /* Subtle parallax on hero glows */
+      const glows = document.querySelectorAll('.hero__glow');
+      if (glows.length) {
+        glows.forEach((glow, i) => {
+          gsap.to(glow, {
+            y: i % 2 === 0 ? 60 : -40,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        });
+      }
+
+      window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+      ScrollTrigger.refresh();
+    }
+  } else {
+    showAllReveals();
   }
 
   function refreshSwiperOnImages(swiper) {
@@ -608,9 +738,18 @@
 
       const name = contactForm.querySelector('#name');
       const phone = contactForm.querySelector('#phone');
+      const status = contactForm.querySelector('#contactFormStatus');
 
       if (!name.value.trim() || !phone.value.trim()) {
+        if (status) {
+          status.textContent = 'Будь ласка, заповніть імʼя та телефон.';
+        }
+        (name.value.trim() ? phone : name).focus();
         return;
+      }
+
+      if (status) {
+        status.textContent = '';
       }
 
       const btn = contactForm.querySelector('button[type="submit"]');
@@ -725,7 +864,7 @@
           </div>
           <button type="submit" class="btn btn--primary btn--lg btn--full">Отримати знижку</button>
           <p class="contact-form__microcopy">Передзвонимо, уточнимо деталі та підтвердимо розмір знижки.</p>
-          <p class="contact-form__privacy">Надсилаючи форму, ви погоджуєтесь з <a href="/#privacy">політикою конфіденційності</a>.</p>
+          <p class="contact-form__privacy">Надсилаючи форму, ви погоджуєтесь з <a href="/pages/dogovir-oferta.html">політикою конфіденційності</a>.</p>
         </form>
         </div>
       </div>
