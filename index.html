@@ -190,51 +190,79 @@
                   Послуги
                   <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                                <ul class="drawer-nav__sub" id="drawerServices">
-                  <li><a href="/pages/poslugy.html" class="drawer-nav__sublink">Усі послуги</a></li>
-                  <li class="drawer-nav__group drawer-nav__group--nested">
-                    <button type="button" class="drawer-nav__toggle drawer-nav__toggle--nested" aria-expanded="false" aria-controls="drawerKadrov">
-                      Кадрові тестування
-                      <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <ul class="drawer-nav__sub drawer-nav__sub--nested" id="drawerKadrov">
-                      <li><a href="/kadrovye-testirovaniya/" class="drawer-nav__sublink">Огляд кадрових тестувань</a></li>
-                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="drawer-nav__sublink">Перевірка чинних співробітників на поліграфі</a></li>
-                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="drawer-nav__sublink">Перевірка на поліграфі при працевлаштуванні</a></li>
-                      <li><a href="/poligraph-protiv-hischeniy/" class="drawer-nav__sublink">Перевірка співробітників при крадіжках</a></li>
+                                <ul class="drawer-nav__sub drawer-nav__sub--services" id="drawerServices">
+                  <li class="drawer-services__group">
+                    <a href="#services-business" class="drawer-services__title">Для бізнесу</a>
+                    <ul class="drawer-services__links">
+                      <li><a href="/kadrovye-testirovaniya/" class="drawer-nav__sublink">Перевірка персоналу</a></li>
+                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="drawer-nav__sublink">Перевірка кандидата перед наймом</a></li>
+                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="drawer-nav__sublink">Перевірка чинних співробітників</a></li>
+                      <li><a href="/poligraph-protiv-hischeniy/" class="drawer-nav__sublink">Перевірка при крадіжках</a></li>
                     </ul>
                   </li>
-                  <li><a href="/rassledovaniya/" class="drawer-nav__sublink">Розслідування</a></li>
-                  <li><a href="/spornye-voprosy/" class="drawer-nav__sublink">Спірні питання</a></li>
-                  <li><a href="/ekspertizy/" class="drawer-nav__sublink">Експертизи</a></li>
-                  <li class="drawer-nav__group drawer-nav__group--nested">
-                    <button type="button" class="drawer-nav__toggle drawer-nav__toggle--nested" aria-expanded="false" aria-controls="drawerPrivate">
-                      Для приватних осіб
-                      <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <ul class="drawer-nav__sub drawer-nav__sub--nested" id="drawerPrivate">
-                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="drawer-nav__sublink">Перевірка підлітків на поліграфі</a></li>
-                      <li><a href="/proverka-domashnego-personala/" class="drawer-nav__sublink">Перевірка домашнього персоналу на поліграфі</a></li>
-                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="drawer-nav__sublink">Перевірка на детекторі брехні при подружній зраді</a></li>
+                  <li class="drawer-services__group">
+                    <a href="#services-private" class="drawer-services__title">Для приватних осіб</a>
+                    <ul class="drawer-services__links">
+                      <li><a href="/proverka-domashnego-personala/" class="drawer-nav__sublink">Перевірка домашнього персоналу</a></li>
+                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="drawer-nav__sublink">Перевірка підлітків</a></li>
+                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="drawer-nav__sublink">Перевірка при підозрі на зраду</a></li>
                     </ul>
+                  </li>
+                  <li class="drawer-services__group">
+                    <a href="#services-complex" class="drawer-services__title">Складні ситуації</a>
+                    <ul class="drawer-services__links">
+                      <li><a href="/rassledovaniya/" class="drawer-nav__sublink">Розслідування</a></li>
+                      <li><a href="/spornye-voprosy/" class="drawer-nav__sublink">Спірні питання</a></li>
+                      <li><a href="/ekspertizy/" class="drawer-nav__sublink">Експертизи</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-services__cta">
+                    <div class="drawer-services__cta-text">
+                      <strong>Не знаєте, який формат перевірки потрібен?</strong>
+                      <p>Опишіть ситуацію — спеціаліст підкаже коректний варіант.</p>
+                    </div>
+                    <a href="/pages/kontakty.html" class="btn btn--primary btn--sm drawer-services__cta-btn">Отримати консультацію</a>
                   </li>
                 </ul>
               </li>
-              <li><a href="#services" class="drawer-nav__link">Для бізнесу</a></li>
-              <li><a href="/pages/kontakty.html" class="drawer-nav__link">Приватним клієнтам</a></li>
               <li><a href="/pages/tseny.html" class="drawer-nav__link">Ціни</a></li>
               <li class="drawer-nav__group">
                 <button type="button" class="drawer-nav__toggle" aria-expanded="false" aria-controls="drawerCompany">
                   Компанія
                   <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <ul class="drawer-nav__sub" id="drawerCompany">
-                  <li><a href="/pages/o-nas.html" class="drawer-nav__sublink">Про компанію</a></li>
-                  <li><a href="/pages/nashi-preimuschestva.html" class="drawer-nav__sublink">Наші переваги</a></li>
-                  <li><a href="/#team" class="drawer-nav__sublink">Команда</a></li>
-                  <li><a href="/pages/porivnyannya-z-poligrafologom-odinakom.html" class="drawer-nav__sublink">Порівняння з одинаком</a></li>
-                  <li><a href="/pages/porivnyannya-zi-shtatnym-poligrafologom.html" class="drawer-nav__sublink">Порівняння зі штатним</a></li>
-                  <li><a href="/pages/kontakty.html" class="drawer-nav__sublink">Контакти</a></li>
+                <ul class="drawer-nav__sub drawer-nav__sub--company" id="drawerCompany">
+                  <li class="drawer-submenu__group">
+                    <span class="drawer-submenu__title">Про нас</span>
+                    <ul class="drawer-submenu__links">
+                      <li><a href="/pages/o-nas.html" class="drawer-nav__sublink">Про компанію</a></li>
+                      <li><a href="/pages/nashi-preimuschestva.html" class="drawer-nav__sublink">Наші переваги</a></li>
+                      <li><a href="/#team" class="drawer-nav__sublink">Команда</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-submenu__group">
+                    <span class="drawer-submenu__title">Порівняння</span>
+                    <ul class="drawer-submenu__links">
+                      <li><a href="/pages/porivnyannya-z-poligrafologom-odinakom.html" class="drawer-nav__sublink">Порівняння з одинаком</a></li>
+                      <li><a href="/pages/porivnyannya-zi-shtatnym-poligrafologom.html" class="drawer-nav__sublink">Порівняння зі штатним</a></li>
+                      <li><a href="/#comparison" class="drawer-nav__sublink">Усі порівняння</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-submenu__group">
+                    <span class="drawer-submenu__title">Клієнтам</span>
+                    <ul class="drawer-submenu__links">
+                      <li><a href="/pages/kontakty.html" class="drawer-nav__sublink">Контакти</a></li>
+                      <li><a href="/pages/tseny.html" class="drawer-nav__sublink">Ціни</a></li>
+                      <li><a href="/pages/faq.html" class="drawer-nav__sublink">Питання та відповіді</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-nav__cta">
+                    <div class="drawer-nav__cta-text">
+                      <strong>Хочете дізнатися про нас ближче?</strong>
+                      <p>Ознайомтеся з командою та перевагами або зв'яжіться з менеджером.</p>
+                    </div>
+                    <a href="/pages/kontakty.html" class="btn btn--primary btn--sm drawer-nav__cta-btn">Зв'язатися з нами</a>
+                  </li>
                 </ul>
               </li>
               <li><a href="/pages/about-testing.html" class="drawer-nav__link">Як проходить перевірка</a></li>
@@ -256,44 +284,44 @@
               </button>
               <div class="mega-menu nav-panel nav-panel--mega" id="megaMenu">
                 <div class="nav-panel__sheet">
-                                <div class="mega-menu__grid">
+                <div class="mega-menu__grid">
                   <div class="mega-menu__col">
-                    <a href="/pages/poslugy.html" class="mega-menu__title mega-menu__title--link">Усі послуги</a>
-                    <a href="/kadrovye-testirovaniya/" class="mega-menu__title mega-menu__title--link">Кадрові тестування</a>
+                    <a href="#services-business" class="mega-menu__title mega-menu__title--link">Для бізнесу</a>
                     <ul class="mega-menu__links">
-                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="mega-menu__link">Перевірка чинних співробітників на поліграфі</a></li>
-                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="mega-menu__link">Перевірка на поліграфі при працевлаштуванні</a></li>
-                      <li><a href="/poligraph-protiv-hischeniy/" class="mega-menu__link">Перевірка співробітників при крадіжках</a></li>
+                      <li><a href="/kadrovye-testirovaniya/" class="mega-menu__link">Перевірка персоналу</a></li>
+                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="mega-menu__link">Перевірка кандидата перед наймом</a></li>
+                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="mega-menu__link">Перевірка чинних співробітників</a></li>
+                      <li><a href="/poligraph-protiv-hischeniy/" class="mega-menu__link">Перевірка при крадіжках</a></li>
                     </ul>
                   </div>
                   <div class="mega-menu__col">
-                    <span class="mega-menu__title">Розслідування та експертиза</span>
+                    <a href="#services-private" class="mega-menu__title mega-menu__title--link">Для приватних осіб</a>
+                    <ul class="mega-menu__links">
+                      <li><a href="/proverka-domashnego-personala/" class="mega-menu__link">Перевірка домашнього персоналу</a></li>
+                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="mega-menu__link">Перевірка підлітків</a></li>
+                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="mega-menu__link">Перевірка при підозрі на зраду</a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu__col">
+                    <a href="#services-complex" class="mega-menu__title mega-menu__title--link">Складні ситуації</a>
                     <ul class="mega-menu__links">
                       <li><a href="/rassledovaniya/" class="mega-menu__link">Розслідування</a></li>
                       <li><a href="/spornye-voprosy/" class="mega-menu__link">Спірні питання</a></li>
                       <li><a href="/ekspertizy/" class="mega-menu__link">Експертизи</a></li>
                     </ul>
                   </div>
-                  <div class="mega-menu__col">
-                    <span class="mega-menu__title">Для приватних осіб</span>
-                    <ul class="mega-menu__links">
-                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="mega-menu__link">Перевірка підлітків на поліграфі</a></li>
-                      <li><a href="/proverka-domashnego-personala/" class="mega-menu__link">Перевірка домашнього персоналу на поліграфі</a></li>
-                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="mega-menu__link">Перевірка на детекторі брехні при подружній зраді</a></li>
-                    </ul>
-                  </div>
                 </div><div class="mega-menu__cta">
                   <div class="mega-menu__cta-text">
-                    <strong>Не знаєте, який формат потрібен?</strong>
-                    <p>Опишіть ситуацію — ми підкажемо, чи підходить поліграф і який формат перевірки буде коректним.</p>
+                    <strong>Не знаєте, який формат перевірки потрібен?</strong>
+                    <p>Опишіть ситуацію — спеціаліст підкаже коректний варіант.</p>
                   </div>
                   <a href="/pages/kontakty.html" class="btn btn--primary btn--sm mega-menu__cta-btn">Отримати консультацію</a>
                 </div>
                 </div>
               </div>
             </li>
-            <li class="nav__item"><a href="#services" class="nav__link">Для бізнесу</a></li>
-            <li class="nav__item"><a href="/pages/kontakty.html" class="nav__link">Приватним клієнтам</a></li>
+            <li class="nav__item"><a href="#services-business" class="nav__link">Для бізнесу</a></li>
+            <li class="nav__item"><a href="#services-private" class="nav__link">Приватним клієнтам</a></li>
             <li class="nav__item"><a href="/pages/tseny.html" class="nav__link">Ціни</a></li>
             <li class="nav__item nav__dropdown nav__dropdown--mega">
               <button type="button" class="nav__link nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="companyMenu">
@@ -302,14 +330,13 @@
               </button>
               <div class="mega-menu nav-panel nav-panel--mega nav-panel--company" id="companyMenu">
                 <div class="nav-panel__sheet">
-                <div class="mega-menu__grid mega-menu__grid--compact">
+                <div class="mega-menu__grid">
                   <div class="mega-menu__col">
                     <span class="mega-menu__title">Про нас</span>
                     <ul class="mega-menu__links">
                       <li><a href="/pages/o-nas.html" class="mega-menu__link">Про компанію</a></li>
                       <li><a href="/pages/nashi-preimuschestva.html" class="mega-menu__link">Наші переваги</a></li>
                       <li><a href="/#team" class="mega-menu__link">Команда</a></li>
-                      <li><a href="/pages/kontakty.html" class="mega-menu__link">Контакти</a></li>
                     </ul>
                   </div>
                   <div class="mega-menu__col">
@@ -320,6 +347,21 @@
                       <li><a href="/#comparison" class="mega-menu__link">Усі порівняння</a></li>
                     </ul>
                   </div>
+                  <div class="mega-menu__col">
+                    <span class="mega-menu__title">Клієнтам</span>
+                    <ul class="mega-menu__links">
+                      <li><a href="/pages/kontakty.html" class="mega-menu__link">Контакти</a></li>
+                      <li><a href="/pages/tseny.html" class="mega-menu__link">Ціни</a></li>
+                      <li><a href="/pages/faq.html" class="mega-menu__link">Питання та відповіді</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="mega-menu__cta">
+                  <div class="mega-menu__cta-text">
+                    <strong>Хочете дізнатися про нас ближче?</strong>
+                    <p>Ознайомтеся з командою та перевагами або зв'яжіться з менеджером.</p>
+                  </div>
+                  <a href="/pages/kontakty.html" class="btn btn--primary btn--sm mega-menu__cta-btn">Зв'язатися з нами</a>
                 </div>
                 </div>
               </div>
@@ -526,17 +568,17 @@
           <article class="glass-card quick-choice-card reveal">
             <h3 class="quick-choice-card__title">Для бізнесу</h3>
             <p class="quick-choice-card__text">Перевірка кандидатів, чинних співробітників, службові розслідування, ризики крадіжок і витоку інформації.</p>
-            <a href="#services" class="quick-choice-card__cta">Перевірити співробітника</a>
+            <a href="#services-business" class="quick-choice-card__cta">Перевірити співробітника</a>
           </article>
           <article class="glass-card quick-choice-card reveal">
             <h3 class="quick-choice-card__title">Для приватних клієнтів</h3>
             <p class="quick-choice-card__text">Домашній персонал, сімейні ситуації, делікатні питання та конфіденційні перевірки.</p>
-            <a href="/pages/kontakty.html" class="quick-choice-card__cta">Отримати консультацію</a>
+            <a href="#services-private" class="quick-choice-card__cta">Переглянути послуги</a>
           </article>
           <article class="glass-card quick-choice-card reveal">
             <h3 class="quick-choice-card__title">Для юридичних справ</h3>
             <p class="quick-choice-card__text">Експертні дослідження, адвокатські запити, офіційні висновки та документи.</p>
-            <a href="/pages/kontakty.html" class="quick-choice-card__cta">Обговорити формат</a>
+            <a href="#services-complex" class="quick-choice-card__cta">Переглянути послуги</a>
           </article>
           <article class="glass-card quick-choice-card reveal">
             <h3 class="quick-choice-card__title">Виїзд по Україні</h3>
@@ -655,149 +697,275 @@
       <div class="services-layout">
         <div class="services-aside-col">
           <aside class="services-aside">
-            <div class="services-aside__content">
+            <div class="services-aside__content reveal">
               <span class="section__label">Послуги</span>
               <h2 class="section__title services-aside__title" id="services-title">Послуги Lie Detection Group</h2>
-              <p class="section__subtitle services-aside__text">Оберіть формат перевірки — від кадрового тестування до складних експертних досліджень.</p>
+              <p class="section__subtitle services-aside__text">Оберіть свій сценарій — для бізнесу, приватних ситуацій або складних випадків, що потребують експертного підходу.</p>
             </div>
-            <nav class="services-nav" aria-label="Навігація по послугах">
-              <a href="#service-1" class="services-nav__link active" data-target="service-1">
+            <nav class="services-nav" aria-label="Категорії послуг">
+              <a href="#services-business" class="services-nav__link active" data-target="services-business">
                 <span class="services-nav__num">01</span>
-                Кадрові тестування
+                Для бізнесу
                 <svg class="services-nav__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
-              <a href="#service-2" class="services-nav__link" data-target="service-2">
+              <a href="#services-private" class="services-nav__link" data-target="services-private">
                 <span class="services-nav__num">02</span>
-                Розслідування
-                <svg class="services-nav__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <a href="#service-3" class="services-nav__link" data-target="service-3">
-                <span class="services-nav__num">03</span>
-                Спірні питання
-                <svg class="services-nav__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <a href="#service-4" class="services-nav__link" data-target="service-4">
-                <span class="services-nav__num">04</span>
-                Експертизи
-                <svg class="services-nav__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <a href="#service-5" class="services-nav__link" data-target="service-5">
-                <span class="services-nav__num">05</span>
                 Для приватних осіб
+                <svg class="services-nav__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a href="#services-complex" class="services-nav__link" data-target="services-complex">
+                <span class="services-nav__num">03</span>
+                Складні ситуації
                 <svg class="services-nav__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </nav>
           </aside>
         </div>
 
-        <div class="services-scroll">
-          <article class="service-card reveal" id="service-1">
-            <div class="service-card__top">
-              <span class="service-card__num">01</span>
-              <h3 class="service-card__title"><a href="/kadrovye-testirovaniya/">Кадрові тестування</a></h3>
+        <div class="services-home__main">
+        <div class="services-groups">
+          <div class="services-group reveal" id="services-business">
+            <div class="services-group__header">
+              <h3 class="services-group__title">Для бізнесу</h3>
+              <p class="services-group__lead">Кадрова безпека, перевірка кандидатів і співробітників, реагування на інциденти в компанії.</p>
             </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Кому підходить</span>
-              <p class="service-card__text">HR-відділам, власникам бізнесу, службам безпеки та керівникам напрямів.</p>
+            <div class="services-scroll">
+              <div class="services-slider">
+                <div class="swiper services-swiper">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">01</span>
+                          <h4 class="service-card__title"><a href="/kadrovye-testirovaniya/">Перевірка персоналу</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Кому підходить</span>
+                          <p class="service-card__text">HR-відділам, власникам бізнесу та службам безпеки — для системної кадрової перевірки.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 3 000 грн / людина</p>
+                        </div>
+                        <a href="/kadrovye-testirovaniya/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">02</span>
+                          <h4 class="service-card__title"><a href="/proverka-na-poligrafe-pri-trudoustroystve/">Перевірка кандидата перед наймом</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Коли потрібна</span>
+                          <p class="service-card__text">Скринінг кандидата до виходу на роботу — щоб знизити ризики ще на етапі прийому.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 3 000 грн / людина</p>
+                        </div>
+                        <a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">03</span>
+                          <h4 class="service-card__title"><a href="/proverka-deystvuyuschikh-sotrudnikov/">Перевірка чинних співробітників</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Коли потрібна</span>
+                          <p class="service-card__text">Планова або позапланова перевірка діючого персоналу для контролю ризиків і дисципліни.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 3 000 грн / людина</p>
+                        </div>
+                        <a href="/proverka-deystvuyuschikh-sotrudnikov/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">04</span>
+                          <h4 class="service-card__title"><a href="/poligraph-protiv-hischeniy/">Перевірка при крадіжках</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Коли потрібна</span>
+                          <p class="service-card__text">Після інциденту з розкраданням або зловживанням — щоб перевірити версії та причетність.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 3 000 грн / людина</p>
+                        </div>
+                        <a href="/poligraph-protiv-hischeniy/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+                <div class="services-slider__nav">
+                  <button type="button" class="services-slider__btn services-swiper__prev" aria-label="Попередня послуга для бізнесу">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <div class="swiper-pagination services-swiper__pagination"></div>
+                  <button type="button" class="services-slider__btn services-swiper__next" aria-label="Наступна послуга для бізнесу">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Послуги</span>
-              <ul class="service-card__links">
-                <li><a href="/proverka-deystvuyuschikh-sotrudnikov/">Перевірка чинних співробітників на поліграфі</a></li>
-                <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/">Перевірка на поліграфі при працевлаштуванні</a></li>
-                <li><a href="/poligraph-protiv-hischeniy/">Перевірка співробітників при крадіжках</a></li>
-              </ul>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Орієнтовна вартість</span>
-              <p class="service-card__price">від 3 000 грн / людина</p>
-            </div>
-            <a href="/kadrovye-testirovaniya/" class="btn btn--ghost service-card__cta">Детальніше про кадрові тестування</a>
-          </article>
+          </div>
 
-          <article class="service-card reveal" id="service-2">
-            <div class="service-card__top">
-              <span class="service-card__num">02</span>
-              <h3 class="service-card__title"><a href="/rassledovaniya/">Розслідування</a></h3>
+          <div class="services-group reveal" id="services-private">
+            <div class="services-group__header">
+              <h3 class="services-group__title">Для приватних осіб</h3>
+              <p class="services-group__lead">Конфіденційні перевірки для сімʼї та особистих ситуацій, де важлива делікатність і ясність.</p>
             </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Кому підходить</span>
-              <p class="service-card__text">Компаніям, які зіткнулися з крадіжками, витоком інформації, шахрайством або внутрішніми інцидентами.</p>
+            <div class="services-scroll">
+              <div class="services-slider">
+                <div class="swiper services-swiper">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">01</span>
+                          <h4 class="service-card__title"><a href="/proverka-domashnego-personala/">Перевірка домашнього персоналу</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Кому підходить</span>
+                          <p class="service-card__text">Сімʼям, які наймають няню, покоївку, кухаря або іншого домашній персонал.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 5 000 грн</p>
+                        </div>
+                        <a href="/proverka-domashnego-personala/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">02</span>
+                          <h4 class="service-card__title"><a href="/proverka-podrostkov-na-poligrafe/">Перевірка підлітків</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Кому підходить</span>
+                          <p class="service-card__text">Батькам, яким потрібно обʼєктивно зʼясувати факти без зайвого конфлікту в сімʼї.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 5 000 грн</p>
+                        </div>
+                        <a href="/proverka-podrostkov-na-poligrafe/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">03</span>
+                          <h4 class="service-card__title"><a href="/proverka-vernosti-na-detectore-lji/">Перевірка при підозрі на зраду</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Кому підходить</span>
+                          <p class="service-card__text">Приватним клієнтам у делікатних стосунках, коли потрібен конфіденційний висновок.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 5 000 грн</p>
+                        </div>
+                        <a href="/proverka-vernosti-na-detectore-lji/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+                <div class="services-slider__nav">
+                  <button type="button" class="services-slider__btn services-swiper__prev" aria-label="Попередня приватна послуга">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <div class="swiper-pagination services-swiper__pagination"></div>
+                  <button type="button" class="services-slider__btn services-swiper__next" aria-label="Наступна приватна послуга">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Що ви отримуєте</span>
-              <p class="service-card__text">Службове розслідування з перевіркою версій, уточненням фактів та документованим результатом.</p>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Орієнтовна вартість</span>
-              <p class="service-card__price">від 4 000 грн</p>
-            </div>
-            <a href="/rassledovaniya/" class="btn btn--ghost service-card__cta">Детальніше про розслідування</a>
-          </article>
+          </div>
 
-          <article class="service-card reveal" id="service-3">
-            <div class="service-card__top">
-              <span class="service-card__num">03</span>
-              <h3 class="service-card__title"><a href="/spornye-voprosy/">Спірні питання</a></h3>
+          <div class="services-group reveal" id="services-complex">
+            <div class="services-group__header">
+              <h3 class="services-group__title">Складні ситуації</h3>
+              <p class="services-group__lead">Коли потрібне розслідування, зʼясування спірних фактів або офіційна експертиза.</p>
             </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Кому підходить</span>
-              <p class="service-card__text">Бізнесу та приватним клієнтам, коли потрібно обʼєктивно зʼясувати факти у конфліктній або неоднозначній ситуації.</p>
+            <div class="services-scroll">
+              <div class="services-slider">
+                <div class="swiper services-swiper">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">01</span>
+                          <h4 class="service-card__title"><a href="/rassledovaniya/">Розслідування</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Коли потрібна</span>
+                          <p class="service-card__text">Крадіжки, витік інформації, шахрайство — перевірка версій і уточнення обставин.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 4 000 грн</p>
+                        </div>
+                        <a href="/rassledovaniya/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">02</span>
+                          <h4 class="service-card__title"><a href="/spornye-voprosy/">Спірні питання</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Коли потрібна</span>
+                          <p class="service-card__text">Конфліктні або неоднозначні ситуації, де важливо отримати обʼєктивний висновок.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 5 000 грн</p>
+                        </div>
+                        <a href="/spornye-voprosy/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="service-card">
+                        <div class="service-card__top">
+                          <span class="service-card__num">03</span>
+                          <h4 class="service-card__title"><a href="/ekspertizy/">Експертизи</a></h4>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Коли потрібна</span>
+                          <p class="service-card__text">Судові та юридичні справи, де потрібен офіційний психофізіологічний висновок.</p>
+                        </div>
+                        <div class="service-card__block">
+                          <span class="service-card__label">Орієнтовна вартість</span>
+                          <p class="service-card__price">від 50 000 грн</p>
+                        </div>
+                        <a href="/ekspertizy/" class="btn btn--ghost service-card__cta">Детальніше</a>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+                <div class="services-slider__nav">
+                  <button type="button" class="services-slider__btn services-swiper__prev" aria-label="Попередня послуга у складних ситуаціях">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <div class="swiper-pagination services-swiper__pagination"></div>
+                  <button type="button" class="services-slider__btn services-swiper__next" aria-label="Наступна послуга у складних ситуаціях">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Що ви отримуєте</span>
-              <p class="service-card__text">Структуровану перевірку погоджених питань, конфіденційність і зрозумілий висновок для прийняття рішення.</p>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Орієнтовна вартість</span>
-              <p class="service-card__price">від 5 000 грн</p>
-            </div>
-            <a href="/spornye-voprosy/" class="btn btn--ghost service-card__cta">Детальніше про спірні питання</a>
-          </article>
-
-          <article class="service-card reveal" id="service-4">
-            <div class="service-card__top">
-              <span class="service-card__num">04</span>
-              <h3 class="service-card__title"><a href="/ekspertizy/">Експертизи</a></h3>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Кому підходить</span>
-              <p class="service-card__text">Адвокатам, юристам, сторонам у справах та клієнтам, яким потрібне офіційне експертне дослідження.</p>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Що ви отримуєте</span>
-              <p class="service-card__text">Психофізіологічну експертизу, офіційний висновок і супровід формату дослідження для судових та юридичних цілей.</p>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Орієнтовна вартість</span>
-              <p class="service-card__price">від 50 000 грн</p>
-            </div>
-            <a href="/ekspertizy/" class="btn btn--ghost service-card__cta">Детальніше про експертизи</a>
-          </article>
-
-          <article class="service-card reveal" id="service-5">
-            <div class="service-card__top">
-              <span class="service-card__num">05</span>
-              <h3 class="service-card__title">Для приватних осіб</h3>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Кому підходить</span>
-              <p class="service-card__text">Сімʼям, приватним клієнтам і людям, які хочуть конфіденційно розібратися в делікатній особистій ситуації.</p>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Послуги</span>
-              <ul class="service-card__links">
-                <li><a href="/proverka-podrostkov-na-poligrafe/">Перевірка підлітків на поліграфі</a></li>
-                <li><a href="/proverka-domashnego-personala/">Перевірка домашнього персоналу на поліграфі</a></li>
-                <li><a href="/proverka-vernosti-na-detectore-lji/">Перевірка на детекторі брехні при подружній зраді</a></li>
-              </ul>
-            </div>
-            <div class="service-card__block">
-              <span class="service-card__label">Орієнтовна вартість</span>
-              <p class="service-card__price">від 5 000 грн</p>
-            </div>
-            <a href="/pages/kontakty.html" class="btn btn--ghost service-card__cta">Отримати консультацію</a>
-          </article>
+          </div>
+        </div>
         </div>
       </div>
     </section>

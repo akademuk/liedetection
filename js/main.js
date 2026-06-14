@@ -360,7 +360,7 @@
   window.addEventListener('hashchange', setActiveNavLink);
   setActiveNavLink();
 
-  document.querySelectorAll('.mega-menu__link, .nav__dropdown-link, .mega-menu__cta-btn').forEach((link) => {
+  document.querySelectorAll('.mega-menu__link, .mega-menu__title--link, .nav__dropdown-link, .mega-menu__cta-btn').forEach((link) => {
     link.addEventListener('click', () => closeAllDropdowns());
   });
 
@@ -534,18 +534,24 @@
     showAllReveals();
   }
 
-  function refreshSwiperOnImages(swiper) {
+  function refreshSwiperOnImages(swiper, options = {}) {
     if (!swiper?.el) return;
 
     const update = () => {
       window.requestAnimationFrame(() => {
-        if (swiper.el) swiper.el.style.height = '';
+        if (!swiper.el) return;
+        swiper.el.style.height = '';
         if (swiper.wrapperEl) swiper.wrapperEl.style.height = 'auto';
         swiper.update();
+        swiper.navigation?.update?.();
       });
     };
 
-    swiper.on('init resize slideChange', update);
+    swiper.on('init', update);
+    swiper.on('resize', update);
+    if (!options.skipSlideChange) {
+      swiper.on('slideChange', update);
+    }
 
     swiper.el.querySelectorAll('img').forEach((img) => {
       if (img.complete) return;
@@ -687,8 +693,71 @@
     });
   }
 
-  /* --- Services sticky nav --- */
-  const serviceCards = document.querySelectorAll('.service-card[id]');
+  /* --- Swiper Services (homepage) --- */
+  if (typeof Swiper !== 'undefined') {
+    document.querySelectorAll('.services-group .services-swiper').forEach((swiperEl) => {
+      const group = swiperEl.closest('.services-group');
+      if (!group) return;
+
+      const prevEl = group.querySelector('.services-swiper__prev');
+      const nextEl = group.querySelector('.services-swiper__next');
+      const paginationEl = group.querySelector('.services-swiper__pagination');
+
+      [prevEl, nextEl, paginationEl].forEach((el) => {
+        el?.setAttribute('data-lenis-prevent', '');
+      });
+
+      const servicesSwiper = new Swiper(swiperEl, {
+        ...swiperBaseOptions,
+        observer: false,
+        observeParents: false,
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 16,
+        centeredSlides: false,
+        roundLengths: true,
+        preventClicks: false,
+        preventClicksPropagation: false,
+        navigation: {
+          nextEl,
+          prevEl,
+          disabledClass: 'swiper-button-disabled',
+        },
+        pagination: {
+          el: paginationEl,
+          clickable: true,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+            slidesPerGroup: 1,
+            spaceBetween: 20,
+          },
+          1200: {
+            slidesPerView: 2,
+            slidesPerGroup: 1,
+            spaceBetween: 24,
+          },
+        },
+        on: {
+          afterInit(sw) {
+            requestAnimationFrame(() => {
+              sw.update();
+              sw.navigation?.update?.();
+              sw.pagination?.update?.();
+            });
+          },
+        },
+      });
+
+      refreshSwiperOnImages(servicesSwiper, { skipSlideChange: true });
+    });
+  }
+
+  /* --- Services sticky nav (catalog + homepage categories) --- */
+  const serviceCards = document.querySelectorAll('.services-layout .service-card[id]');
+  const serviceGroups = document.querySelectorAll('.services-group[id]');
+  const serviceTargets = serviceCards.length ? serviceCards : serviceGroups;
   const servicesNavLinks = document.querySelectorAll('.services-nav__link');
 
   function setActiveService(id) {
@@ -700,7 +769,7 @@
     });
   }
 
-  if (serviceCards.length && servicesNavLinks.length) {
+  if (serviceTargets.length && servicesNavLinks.length) {
     const servicesObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -712,7 +781,7 @@
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
     );
 
-    serviceCards.forEach((card) => servicesObserver.observe(card));
+    serviceTargets.forEach((target) => servicesObserver.observe(target));
 
     servicesNavLinks.forEach((link) => {
       link.addEventListener('click', (e) => {

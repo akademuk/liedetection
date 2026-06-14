@@ -120,51 +120,79 @@
                   Послуги
                   <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                                <ul class="drawer-nav__sub" id="drawerServices">
-                  <li><a href="/pages/poslugy.html" class="drawer-nav__sublink">Усі послуги</a></li>
-                  <li class="drawer-nav__group drawer-nav__group--nested">
-                    <button type="button" class="drawer-nav__toggle drawer-nav__toggle--nested" aria-expanded="false" aria-controls="drawerKadrov">
-                      Кадрові тестування
-                      <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <ul class="drawer-nav__sub drawer-nav__sub--nested" id="drawerKadrov">
-                      <li><a href="/kadrovye-testirovaniya/" class="drawer-nav__sublink">Огляд кадрових тестувань</a></li>
-                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="drawer-nav__sublink">Перевірка чинних співробітників на поліграфі</a></li>
-                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="drawer-nav__sublink">Перевірка на поліграфі при працевлаштуванні</a></li>
-                      <li><a href="/poligraph-protiv-hischeniy/" class="drawer-nav__sublink">Перевірка співробітників при крадіжках</a></li>
+                                <ul class="drawer-nav__sub drawer-nav__sub--services" id="drawerServices">
+                  <li class="drawer-services__group">
+                    <a href="/#services-business" class="drawer-services__title">Для бізнесу</a>
+                    <ul class="drawer-services__links">
+                      <li><a href="/kadrovye-testirovaniya/" class="drawer-nav__sublink">Перевірка персоналу</a></li>
+                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="drawer-nav__sublink">Перевірка кандидата перед наймом</a></li>
+                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="drawer-nav__sublink">Перевірка чинних співробітників</a></li>
+                      <li><a href="/poligraph-protiv-hischeniy/" class="drawer-nav__sublink">Перевірка при крадіжках</a></li>
                     </ul>
                   </li>
-                  <li><a href="/rassledovaniya/" class="drawer-nav__sublink">Розслідування</a></li>
-                  <li><a href="/spornye-voprosy/" class="drawer-nav__sublink">Спірні питання</a></li>
-                  <li><a href="/ekspertizy/" class="drawer-nav__sublink">Експертизи</a></li>
-                  <li class="drawer-nav__group drawer-nav__group--nested">
-                    <button type="button" class="drawer-nav__toggle drawer-nav__toggle--nested" aria-expanded="false" aria-controls="drawerPrivate">
-                      Для приватних осіб
-                      <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <ul class="drawer-nav__sub drawer-nav__sub--nested" id="drawerPrivate">
-                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="drawer-nav__sublink">Перевірка підлітків на поліграфі</a></li>
-                      <li><a href="/proverka-domashnego-personala/" class="drawer-nav__sublink">Перевірка домашнього персоналу на поліграфі</a></li>
-                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="drawer-nav__sublink">Перевірка на детекторі брехні при подружній зраді</a></li>
+                  <li class="drawer-services__group">
+                    <a href="/#services-private" class="drawer-services__title">Для приватних осіб</a>
+                    <ul class="drawer-services__links">
+                      <li><a href="/proverka-domashnego-personala/" class="drawer-nav__sublink">Перевірка домашнього персоналу</a></li>
+                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="drawer-nav__sublink">Перевірка підлітків</a></li>
+                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="drawer-nav__sublink">Перевірка при підозрі на зраду</a></li>
                     </ul>
+                  </li>
+                  <li class="drawer-services__group">
+                    <a href="/#services-complex" class="drawer-services__title">Складні ситуації</a>
+                    <ul class="drawer-services__links">
+                      <li><a href="/rassledovaniya/" class="drawer-nav__sublink">Розслідування</a></li>
+                      <li><a href="/spornye-voprosy/" class="drawer-nav__sublink">Спірні питання</a></li>
+                      <li><a href="/ekspertizy/" class="drawer-nav__sublink">Експертизи</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-services__cta">
+                    <div class="drawer-services__cta-text">
+                      <strong>Не знаєте, який формат перевірки потрібен?</strong>
+                      <p>Опишіть ситуацію — спеціаліст підкаже коректний варіант.</p>
+                    </div>
+                    <a href="/pages/kontakty.html" class="btn btn--primary btn--sm drawer-services__cta-btn">Отримати консультацію</a>
                   </li>
                 </ul>
               </li>
-              <li><a href="/#services" class="drawer-nav__link">Для бізнесу</a></li>
-              <li><a href="/pages/kontakty.html" class="drawer-nav__link">Приватним клієнтам</a></li>
               <li><a href="/pages/tseny.html" class="drawer-nav__link">Ціни</a></li>
               <li class="drawer-nav__group">
                 <button type="button" class="drawer-nav__toggle" aria-expanded="false" aria-controls="drawerCompany">
                   Компанія
                   <svg class="drawer-nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <ul class="drawer-nav__sub" id="drawerCompany">
-                  <li><a href="/pages/o-nas.html" class="drawer-nav__sublink">Про компанію</a></li>
-                  <li><a href="/pages/nashi-preimuschestva.html" class="drawer-nav__sublink">Наші переваги</a></li>
-                  <li><a href="/#team" class="drawer-nav__sublink">Команда</a></li>
-                  <li><a href="/pages/porivnyannya-z-poligrafologom-odinakom.html" class="drawer-nav__sublink">Порівняння з одинаком</a></li>
-                  <li><a href="/pages/porivnyannya-zi-shtatnym-poligrafologom.html" class="drawer-nav__sublink">Порівняння зі штатним</a></li>
-                  <li><a href="/pages/kontakty.html" class="drawer-nav__sublink" aria-current="page">Контакти</a></li>
+                <ul class="drawer-nav__sub drawer-nav__sub--company" id="drawerCompany">
+                  <li class="drawer-submenu__group">
+                    <span class="drawer-submenu__title">Про нас</span>
+                    <ul class="drawer-submenu__links">
+                      <li><a href="/pages/o-nas.html" class="drawer-nav__sublink">Про компанію</a></li>
+                      <li><a href="/pages/nashi-preimuschestva.html" class="drawer-nav__sublink">Наші переваги</a></li>
+                      <li><a href="/#team" class="drawer-nav__sublink">Команда</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-submenu__group">
+                    <span class="drawer-submenu__title">Порівняння</span>
+                    <ul class="drawer-submenu__links">
+                      <li><a href="/pages/porivnyannya-z-poligrafologom-odinakom.html" class="drawer-nav__sublink">Порівняння з одинаком</a></li>
+                      <li><a href="/pages/porivnyannya-zi-shtatnym-poligrafologom.html" class="drawer-nav__sublink">Порівняння зі штатним</a></li>
+                      <li><a href="/#comparison" class="drawer-nav__sublink">Усі порівняння</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-submenu__group">
+                    <span class="drawer-submenu__title">Клієнтам</span>
+                    <ul class="drawer-submenu__links">
+                      <li><a href="/pages/kontakty.html" class="drawer-nav__sublink" aria-current="page">Контакти</a></li>
+                      <li><a href="/pages/tseny.html" class="drawer-nav__sublink">Ціни</a></li>
+                      <li><a href="/pages/faq.html" class="drawer-nav__sublink">Питання та відповіді</a></li>
+                    </ul>
+                  </li>
+                  <li class="drawer-nav__cta">
+                    <div class="drawer-nav__cta-text">
+                      <strong>Хочете дізнатися про нас ближче?</strong>
+                      <p>Ознайомтеся з командою та перевагами або зв'яжіться з менеджером.</p>
+                    </div>
+                    <a href="/pages/kontakty.html" class="btn btn--primary btn--sm drawer-nav__cta-btn">Зв'язатися з нами</a>
+                  </li>
                 </ul>
               </li>
               <li><a href="/pages/about-testing.html" class="drawer-nav__link">Як проходить перевірка</a></li>
@@ -186,44 +214,44 @@
               </button>
               <div class="mega-menu nav-panel nav-panel--mega" id="megaMenu">
                 <div class="nav-panel__sheet">
-                                <div class="mega-menu__grid">
+                <div class="mega-menu__grid">
                   <div class="mega-menu__col">
-                    <a href="/pages/poslugy.html" class="mega-menu__title mega-menu__title--link">Усі послуги</a>
-                    <a href="/kadrovye-testirovaniya/" class="mega-menu__title mega-menu__title--link">Кадрові тестування</a>
+                    <a href="/#services-business" class="mega-menu__title mega-menu__title--link">Для бізнесу</a>
                     <ul class="mega-menu__links">
-                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="mega-menu__link">Перевірка чинних співробітників на поліграфі</a></li>
-                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="mega-menu__link">Перевірка на поліграфі при працевлаштуванні</a></li>
-                      <li><a href="/poligraph-protiv-hischeniy/" class="mega-menu__link">Перевірка співробітників при крадіжках</a></li>
+                      <li><a href="/kadrovye-testirovaniya/" class="mega-menu__link">Перевірка персоналу</a></li>
+                      <li><a href="/proverka-na-poligrafe-pri-trudoustroystve/" class="mega-menu__link">Перевірка кандидата перед наймом</a></li>
+                      <li><a href="/proverka-deystvuyuschikh-sotrudnikov/" class="mega-menu__link">Перевірка чинних співробітників</a></li>
+                      <li><a href="/poligraph-protiv-hischeniy/" class="mega-menu__link">Перевірка при крадіжках</a></li>
                     </ul>
                   </div>
                   <div class="mega-menu__col">
-                    <span class="mega-menu__title">Розслідування та експертиза</span>
+                    <a href="/#services-private" class="mega-menu__title mega-menu__title--link">Для приватних осіб</a>
+                    <ul class="mega-menu__links">
+                      <li><a href="/proverka-domashnego-personala/" class="mega-menu__link">Перевірка домашнього персоналу</a></li>
+                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="mega-menu__link">Перевірка підлітків</a></li>
+                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="mega-menu__link">Перевірка при підозрі на зраду</a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu__col">
+                    <a href="/#services-complex" class="mega-menu__title mega-menu__title--link">Складні ситуації</a>
                     <ul class="mega-menu__links">
                       <li><a href="/rassledovaniya/" class="mega-menu__link">Розслідування</a></li>
                       <li><a href="/spornye-voprosy/" class="mega-menu__link">Спірні питання</a></li>
                       <li><a href="/ekspertizy/" class="mega-menu__link">Експертизи</a></li>
                     </ul>
                   </div>
-                  <div class="mega-menu__col">
-                    <span class="mega-menu__title">Для приватних осіб</span>
-                    <ul class="mega-menu__links">
-                      <li><a href="/proverka-podrostkov-na-poligrafe/" class="mega-menu__link">Перевірка підлітків на поліграфі</a></li>
-                      <li><a href="/proverka-domashnego-personala/" class="mega-menu__link">Перевірка домашнього персоналу на поліграфі</a></li>
-                      <li><a href="/proverka-vernosti-na-detectore-lji/" class="mega-menu__link">Перевірка на детекторі брехні при подружній зраді</a></li>
-                    </ul>
-                  </div>
                 </div><div class="mega-menu__cta">
                   <div class="mega-menu__cta-text">
-                    <strong>Не знаєте, який формат потрібен?</strong>
-                    <p>Опишіть ситуацію — ми підкажемо, чи підходить поліграф і який формат перевірки буде коректним.</p>
+                    <strong>Не знаєте, який формат перевірки потрібен?</strong>
+                    <p>Опишіть ситуацію — спеціаліст підкаже коректний варіант.</p>
                   </div>
                   <a href="/pages/kontakty.html" class="btn btn--primary btn--sm mega-menu__cta-btn">Отримати консультацію</a>
                 </div>
                 </div>
               </div>
             </li>
-            <li class="nav__item"><a href="/#services" class="nav__link">Для бізнесу</a></li>
-            <li class="nav__item"><a href="/pages/kontakty.html" class="nav__link">Приватним клієнтам</a></li>
+            <li class="nav__item"><a href="/#services-business" class="nav__link">Для бізнесу</a></li>
+            <li class="nav__item"><a href="/#services-private" class="nav__link">Приватним клієнтам</a></li>
             <li class="nav__item"><a href="/pages/tseny.html" class="nav__link">Ціни</a></li>
             <li class="nav__item nav__dropdown nav__dropdown--mega">
               <button type="button" class="nav__link nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="companyMenu">
@@ -232,14 +260,13 @@
               </button>
               <div class="mega-menu nav-panel nav-panel--mega nav-panel--company" id="companyMenu">
                 <div class="nav-panel__sheet">
-                <div class="mega-menu__grid mega-menu__grid--compact">
+                <div class="mega-menu__grid">
                   <div class="mega-menu__col">
                     <span class="mega-menu__title">Про нас</span>
                     <ul class="mega-menu__links">
                       <li><a href="/pages/o-nas.html" class="mega-menu__link">Про компанію</a></li>
                       <li><a href="/pages/nashi-preimuschestva.html" class="mega-menu__link">Наші переваги</a></li>
                       <li><a href="/#team" class="mega-menu__link">Команда</a></li>
-                      <li><a href="/pages/kontakty.html" class="mega-menu__link" aria-current="page">Контакти</a></li>
                     </ul>
                   </div>
                   <div class="mega-menu__col">
@@ -250,6 +277,30 @@
                       <li><a href="/#comparison" class="mega-menu__link">Усі порівняння</a></li>
                     </ul>
                   </div>
+                  <div class="mega-menu__col">
+                    <span class="mega-menu__title">Клієнтам</span>
+                    <ul class="mega-menu__links">
+                      <li><a href="/pages/kontakty.html" class="mega-menu__link" aria-current="page">Контакти</a></li>
+                      <li><a href="/pages/tseny.html" class="mega-menu__link">Ціни</a></li>
+                      <li><a href="/pages/faq.html" class="mega-menu__link">Питання та відповіді</a></li>
+                    </ul>
+                  </div>
+                </div>
+                  <div class="mega-menu__col">
+                    <span class="mega-menu__title">Порівняння</span>
+                    <ul class="mega-menu__links">
+                      <li><a href="/pages/porivnyannya-z-poligrafologom-odinakom.html" class="mega-menu__link">З поліграфологом-одинаком</a></li>
+                      <li><a href="/pages/porivnyannya-zi-shtatnym-poligrafologom.html" class="mega-menu__link">Зі штатним поліграфологом</a></li>
+                      <li><a href="/#comparison" class="mega-menu__link">Усі порівняння</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="mega-menu__cta">
+                  <div class="mega-menu__cta-text">
+                    <strong>Хочете дізнатися про нас ближче?</strong>
+                    <p>Ознайомтеся з командою та перевагами або зв'яжіться з менеджером.</p>
+                  </div>
+                  <a href="/pages/kontakty.html" class="btn btn--primary btn--sm mega-menu__cta-btn">Зв'язатися з нами</a>
                 </div>
                 </div>
               </div>
