@@ -1065,7 +1065,6 @@
     [
       document.getElementById('militaryPromo'),
       document.querySelector('.blackout-fix'),
-      document.getElementById('backToTop'),
     ].filter(Boolean).forEach((el) => dock.appendChild(el));
 
     const blackoutText = dock.querySelector('.blackout-fix__text');
@@ -1401,3 +1400,18 @@ function wireBlackoutModal(blackoutBtn, lenis) {
     }
   });
 }
+
+/* --- Telegram Chat Widget --- */
+(function loadChatWidget() {
+  if (document.querySelector('link[data-ldg-chat]')) return;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/css/chat-widget.css';
+  link.setAttribute('data-ldg-chat', '');
+  document.head.appendChild(link);
+
+  const script = document.createElement('script');
+  script.src = '/js/chat-widget.js';
+  script.defer = true;
+  document.body.appendChild(script);
+})();

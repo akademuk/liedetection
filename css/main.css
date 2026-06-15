@@ -7780,7 +7780,8 @@ a.mega-menu__title--link+.mega-menu__title {
 
   .mobile-dock .military-promo,
   .mobile-dock .blackout-fix,
-  .mobile-dock .back-to-top {
+  .mobile-dock .back-to-top,
+  .mobile-dock .ldg-chat__launcher {
     position: static;
     flex: 1;
     min-width: 0;
@@ -7827,7 +7828,8 @@ a.mega-menu__title--link+.mega-menu__title {
   }
 
   .mobile-dock .military-promo__text,
-  .mobile-dock .blackout-fix__text {
+  .mobile-dock .blackout-fix__text,
+  .mobile-dock .ldg-chat__dock-label {
     font-size: 11px;
     font-weight: 700;
     line-height: 1.2;
@@ -7839,7 +7841,8 @@ a.mega-menu__title--link+.mega-menu__title {
 
   .mobile-dock .military-promo__icon,
   .mobile-dock .blackout-fix__icon,
-  .mobile-dock .back-to-top__icon {
+  .mobile-dock .back-to-top__icon,
+  .mobile-dock .ldg-chat__dock-icon {
     width: 28px;
     height: 28px;
     flex-shrink: 0;
@@ -7847,7 +7850,8 @@ a.mega-menu__title--link+.mega-menu__title {
 
   .mobile-dock .military-promo__icon svg,
   .mobile-dock .blackout-fix__icon svg,
-  .mobile-dock .back-to-top__icon svg {
+  .mobile-dock .back-to-top__icon svg,
+  .mobile-dock .ldg-chat__dock-icon svg {
     width: 15px;
     height: 15px;
   }
@@ -7866,6 +7870,12 @@ a.mega-menu__title--link+.mega-menu__title {
   }
 }
 
+@media (max-width: 768px) {
+  .back-to-top {
+    display: none !important;
+  }
+}
+
 @media (max-width: 480px) {
 
   .mobile-dock .military-promo__text,
@@ -7875,7 +7885,8 @@ a.mega-menu__title--link+.mega-menu__title {
 
   .mobile-dock .military-promo,
   .mobile-dock .blackout-fix,
-  .mobile-dock .back-to-top {
+  .mobile-dock .back-to-top,
+  .mobile-dock .ldg-chat__launcher {
     padding: 10px;
     border-radius: 12px;
   }

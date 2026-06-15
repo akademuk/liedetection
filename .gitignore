@@ -1,0 +1,5 @@
+.env
+server/.env
+server/node_modules/
+server/.cache/
+.DS_Store
