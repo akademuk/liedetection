@@ -147,13 +147,32 @@
   handleSmartHeader();
 
   /* --- Language picker --- */
-  const langPickers = document.querySelectorAll('[data-lang-picker]');
-
   function closeAllLangPickers(except) {
-    langPickers.forEach((picker) => {
+    document.querySelectorAll('[data-lang-picker]').forEach((picker) => {
       if (picker === except) return;
       picker.classList.remove('lang-picker--open');
       picker.querySelector('.lang-picker__toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function bindLangPickers() {
+    document.querySelectorAll('[data-lang-picker]:not([data-lang-bound])').forEach((picker) => {
+      const toggle = picker.querySelector('.lang-picker__toggle');
+      if (!toggle) return;
+
+      picker.setAttribute('data-lang-bound', 'true');
+      picker.addEventListener('click', (e) => e.stopPropagation());
+
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = picker.classList.toggle('lang-picker--open');
+        toggle.setAttribute('aria-expanded', isOpen);
+        if (isOpen) {
+          closeAllLangPickers(picker);
+          closeAllDropdowns();
+        }
+      });
     });
   }
 
@@ -206,29 +225,38 @@
 
   navDropdownBackdrop?.addEventListener('click', () => closeAllDropdowns());
 
-  langPickers.forEach((picker) => {
-    const toggle = picker.querySelector('.lang-picker__toggle');
-    if (!toggle) return;
+  function setupDrawerLangPicker() {
+    if (!navDrawer || navDrawer.querySelector('.drawer-lang [data-lang-picker]')) return;
 
-    picker.addEventListener('click', (e) => e.stopPropagation());
+    const topbarPicker = document.querySelector('.lang-picker--topbar');
+    if (!topbarPicker) return;
 
-    toggle.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const isOpen = picker.classList.toggle('lang-picker--open');
-      toggle.setAttribute('aria-expanded', isOpen);
-      if (isOpen) {
-        closeAllLangPickers(picker);
-        closeAllDropdowns();
-      }
-    });
-  });
+    const drawerLang = document.createElement('div');
+    drawerLang.className = 'drawer-lang';
+    drawerLang.innerHTML = '<span class="drawer-lang__label">Мова сайту</span><div class="drawer-lang__picker"></div>';
+
+    const clone = topbarPicker.cloneNode(true);
+    clone.classList.remove('lang-picker--topbar', 'lang-picker--open');
+    clone.classList.add('lang-picker--drawer');
+    clone.querySelector('.lang-picker__toggle')?.setAttribute('aria-expanded', 'false');
+    drawerLang.querySelector('.drawer-lang__picker')?.appendChild(clone);
+
+    const drawerCta = navDrawer.querySelector('.drawer-cta');
+    if (drawerCta) {
+      navDrawer.insertBefore(drawerLang, drawerCta);
+    } else {
+      navDrawer.appendChild(drawerLang);
+    }
+  }
 
   /* Drawer must live on body — .header backdrop-filter clips position:fixed children */
   if (navOverlay && navDrawer && navOverlay.parentElement !== document.body) {
     document.body.appendChild(navOverlay);
     document.body.appendChild(navDrawer);
   }
+
+  setupDrawerLangPicker();
+  bindLangPickers();
 
   navDrawer?.setAttribute('data-lenis-prevent', '');
   navOverlay?.setAttribute('data-lenis-prevent', '');
@@ -584,8 +612,8 @@
       function animateRevealGroup(trigger, reveals) {
         if (!reveals.length) return;
 
-        const liftCards = reveals.filter((el) => el.matches('.quick-choice-card, .when-card'));
-        const fadeUps = reveals.filter((el) => !el.matches('.quick-choice-card, .when-card'));
+        const liftCards = reveals.filter((el) => el.matches('.quick-choice-card, .when-card, .process-step--timeline'));
+        const fadeUps = reveals.filter((el) => !el.matches('.quick-choice-card, .when-card, .process-step--timeline'));
 
         if (liftCards.length) {
           gsap.to(liftCards, {
@@ -1250,7 +1278,6 @@
       <span class="back-to-top__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
       </span>
-      <span class="back-to-top__text">Вгору</span>
     `;
     document.body.appendChild(backToTop);
 
