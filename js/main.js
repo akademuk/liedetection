@@ -212,7 +212,9 @@
 
     picker.addEventListener('click', (e) => e.stopPropagation());
 
-    toggle.addEventListener('click', () => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const isOpen = picker.classList.toggle('lang-picker--open');
       toggle.setAttribute('aria-expanded', isOpen);
       if (isOpen) {
@@ -977,7 +979,7 @@
           </div>
           <button type="submit" class="btn btn--primary btn--lg btn--full">Отримати знижку</button>
           <p class="contact-form__microcopy">Передзвонимо, уточнимо деталі та підтвердимо розмір знижки.</p>
-          <p class="contact-form__privacy">Надсилаючи форму, ви погоджуєтесь з <a href="/pages/dogovir-oferta.html">політикою конфіденційності</a>.</p>
+          <p class="contact-form__privacy">Надсилаючи форму, ви погоджуєтесь з <a href="/dogovir-oferta/">політикою конфіденційності</a>.</p>
         </form>
         </div>
       </div>

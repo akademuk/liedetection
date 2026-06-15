@@ -19,7 +19,10 @@ python3 -m http.server 8080
 ```
 liedetection/
 ├── index.html              # Головна сторінка
-├── pages/                  # Внутрішні сторінки (.html)
+├── kontakty/               # Внутрішні сторінки (clean URL: /slug/)
+├── faq/
+├── tseny/
+├── …                       # 21 внутрішня сторінка (slug/index.html)
 ├── css/
 │   ├── fonts.css           # @font-face (Inter, Manrope)
 │   └── main.css            # Стилі, теми dark/light, адаптив
