@@ -395,6 +395,143 @@
     });
   }
 
+  function initExpertiseScroll() {
+    const pin = document.getElementById('expertisePin');
+    if (!pin || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const panels = gsap.utils.toArray('[data-expertise-panel]', pin);
+    const stage = pin.querySelector('.expertise-visual__stage');
+    const chips = gsap.utils.toArray('.expertise-visual__chip', pin);
+    const progressFill = document.getElementById('expertiseProgressFill');
+    const counter = document.getElementById('expertiseCounter');
+    const DESKTOP_BP = 1024;
+    let expertiseTrigger = null;
+    let resizeTimer;
+
+    function killExpertise() {
+      if (expertiseTrigger) {
+        expertiseTrigger.kill();
+        expertiseTrigger = null;
+      }
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.vars?.id === 'expertise-scroll') st.kill();
+      });
+      gsap.killTweensOf([...panels, ...chips, stage, progressFill].filter(Boolean));
+    }
+
+    function setStatic() {
+      pin.classList.add('expertise-pin--static');
+      panels.forEach((panel) => {
+        panel.classList.add('is-active');
+        gsap.set(panel, { clearProps: 'all' });
+        gsap.set(panel.querySelectorAll('.expertise-feature'), { clearProps: 'all' });
+      });
+      if (progressFill) progressFill.style.width = '100%';
+      if (counter) counter.textContent = String(panels.length).padStart(2, '0');
+    }
+
+    function build() {
+      killExpertise();
+      pin.classList.remove('expertise-pin--static');
+
+      if (!panels.length) return;
+
+      if (window.innerWidth < DESKTOP_BP) {
+        setStatic();
+        return;
+      }
+
+      panels.forEach((panel, i) => {
+        const features = panel.querySelectorAll('.expertise-feature');
+        panel.classList.toggle('is-active', i === 0);
+        if (i === 0) {
+          gsap.set(panel, { opacity: 1, visibility: 'visible', y: 0, scale: 1 });
+          gsap.set(features, { opacity: 1, y: 0 });
+        } else {
+          gsap.set(panel, { opacity: 0, visibility: 'hidden', y: 56, scale: 0.96 });
+          gsap.set(features, { opacity: 0, y: 28 });
+        }
+      });
+
+      if (stage) gsap.set(stage, { scale: 0.92 });
+      chips.forEach((chip, i) => gsap.set(chip, { y: i % 2 === 0 ? 16 : -10, opacity: 0.7 }));
+
+      const tl = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        scrollTrigger: {
+          id: 'expertise-scroll',
+          trigger: pin,
+          start: 'top top+=88',
+          end: () => `+=${Math.round(panels.length * window.innerHeight * 0.52)}`,
+          pin: true,
+          scrub: 0.55,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate(self) {
+            if (progressFill) progressFill.style.width = `${self.progress * 100}%`;
+            const idx = Math.min(panels.length - 1, Math.floor(self.progress * panels.length));
+            if (counter) counter.textContent = String(idx + 1).padStart(2, '0');
+          },
+        },
+      });
+
+      expertiseTrigger = tl.scrollTrigger;
+
+      panels.forEach((panel, i) => {
+        const features = panel.querySelectorAll('.expertise-feature');
+        if (i > 0) {
+          const prev = panels[i - 1];
+          const prevFeatures = prev.querySelectorAll('.expertise-feature');
+          tl.to(prev, {
+            opacity: 0,
+            y: -48,
+            scale: 0.95,
+            visibility: 'hidden',
+            duration: 0.45,
+            onStart: () => prev.classList.remove('is-active'),
+            onReverseComplete: () => prev.classList.add('is-active'),
+          });
+          tl.to(prevFeatures, { opacity: 0, y: -20, duration: 0.3 }, '<');
+          tl.to(panel, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            visibility: 'visible',
+            duration: 0.55,
+            onStart: () => panel.classList.add('is-active'),
+            onReverseComplete: () => {
+              if (i > 0) panel.classList.remove('is-active');
+            },
+          }, '-=0.2');
+          tl.to(features, { opacity: 1, y: 0, stagger: 0.08, duration: 0.4 }, '-=0.35');
+        }
+        if (i < panels.length - 1) tl.to({}, { duration: 0.65 });
+      });
+
+      if (stage) {
+        tl.to(stage, { scale: 1, duration: panels.length, ease: 'none' }, 0);
+      }
+      if (chips.length) {
+        tl.to(chips, {
+          y: (i) => (i % 2 === 0 ? -12 : 14),
+          opacity: 1,
+          duration: panels.length,
+          ease: 'none',
+          stagger: 0.05,
+        }, 0);
+      }
+    }
+
+    build();
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        build();
+        ScrollTrigger.refresh();
+      }, 220);
+    });
+  }
+
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -402,8 +539,19 @@
 
     if (prefersReducedMotion) {
       showAllReveals();
+      const expertisePin = document.getElementById('expertisePin');
+      if (expertisePin) {
+        expertisePin.classList.add('expertise-pin--static');
+        expertisePin.querySelectorAll('[data-expertise-panel]').forEach((panel) => {
+          panel.classList.add('is-active');
+        });
+        const progressFill = document.getElementById('expertiseProgressFill');
+        const counter = document.getElementById('expertiseCounter');
+        if (progressFill) progressFill.style.width = '100%';
+        if (counter) counter.textContent = '03';
+      }
     } else {
-      const REVEAL_EXCLUDE = '.team-slider, .reviews-slider, .section--services';
+      const REVEAL_EXCLUDE = '.team-slider, .reviews-slider, .section--services, #expertisePin';
       const HERO_SELECTORS = '.hero, .article-page-hero, .faq-page-hero, .contact-page-hero, .price-page-hero';
       const REVEAL_GROUP_SELECTORS = [
         '.section',
@@ -529,11 +677,21 @@
         });
       }
 
+      /* Expertise — pinned scroll groups */
+      initExpertiseScroll();
+
       window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
       ScrollTrigger.refresh();
     }
   } else {
     showAllReveals();
+    const expertisePin = document.getElementById('expertisePin');
+    if (expertisePin) {
+      expertisePin.classList.add('expertise-pin--static');
+      expertisePin.querySelectorAll('[data-expertise-panel]').forEach((panel) => {
+        panel.classList.add('is-active');
+      });
+    }
   }
 
   function refreshSwiperOnImages(swiper, options = {}) {
