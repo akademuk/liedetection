@@ -25,15 +25,31 @@
     return getStoredTheme() ?? getSystemTheme();
   }
 
+  function updateLogos(theme) {
+    const fileName = theme === 'dark' ? 'logo-white.png' : 'logo-mark.png';
+    document.querySelectorAll('.logo__img').forEach((img) => {
+      const src = img.getAttribute('src') || '';
+      if (!img.dataset.logoBase) {
+        img.dataset.logoBase = src.replace(/(?:logo-white|logo-mark)\.png$/, '');
+      }
+      const nextSrc = `${img.dataset.logoBase}${fileName}`;
+      if (img.getAttribute('src') !== nextSrc) {
+        img.setAttribute('src', nextSrc);
+      }
+    });
+  }
+
   function setTheme(theme, persist) {
     html.setAttribute('data-theme', theme);
     if (persist) {
       localStorage.setItem(STORAGE_KEY, theme);
     }
+    updateLogos(theme);
   }
 
   function applyTheme() {
-    setTheme(getPreferredTheme(), false);
+    const theme = getPreferredTheme();
+    setTheme(theme, false);
   }
 
   applyTheme();
@@ -96,6 +112,24 @@
     });
 
     if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
+      ScrollTrigger.scrollerProxy(document.documentElement, {
+        scrollTop(value) {
+          if (arguments.length) {
+            lenis.scrollTo(value, { immediate: true });
+          }
+          return lenis.scroll;
+        },
+        getBoundingClientRect() {
+          return {
+            top: 0,
+            left: 0,
+            width: window.innerWidth,
+            height: window.innerHeight,
+          };
+        },
+      });
+
+      ScrollTrigger.addEventListener('refresh', () => lenis.resize());
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
@@ -438,11 +472,11 @@
 
     function killExpertise() {
       if (expertiseTrigger) {
-        expertiseTrigger.kill();
+        expertiseTrigger.kill(true);
         expertiseTrigger = null;
       }
       ScrollTrigger.getAll().forEach((st) => {
-        if (st.vars?.id === 'expertise-scroll') st.kill();
+        if (st.vars?.id === 'expertise-scroll') st.kill(true);
       });
       gsap.killTweensOf([...panels, ...chips, stage, progressFill].filter(Boolean));
     }
@@ -453,6 +487,9 @@
         panel.classList.add('is-active');
         gsap.set(panel, { clearProps: 'all' });
         gsap.set(panel.querySelectorAll('.expertise-feature'), { clearProps: 'all' });
+      });
+      [stage, ...chips, progressFill].filter(Boolean).forEach((el) => {
+        gsap.set(el, { clearProps: 'all' });
       });
       if (progressFill) progressFill.style.width = '100%';
       if (counter) counter.textContent = String(panels.length).padStart(2, '0');
@@ -490,9 +527,10 @@
           id: 'expertise-scroll',
           trigger: pin,
           start: 'top top+=88',
-          end: () => `+=${Math.round(panels.length * window.innerHeight * 0.52)}`,
+          end: () => `+=${Math.round(panels.length * window.innerHeight * 0.32)}`,
           pin: true,
-          scrub: 0.55,
+          pinSpacing: true,
+          scrub: 0.45,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate(self) {
@@ -533,7 +571,7 @@
           }, '-=0.2');
           tl.to(features, { opacity: 1, y: 0, stagger: 0.08, duration: 0.4 }, '-=0.35');
         }
-        if (i < panels.length - 1) tl.to({}, { duration: 0.65 });
+        if (i < panels.length - 1) tl.to({}, { duration: 0.28 });
       });
 
       if (stage) {
@@ -576,7 +614,7 @@
         const progressFill = document.getElementById('expertiseProgressFill');
         const counter = document.getElementById('expertiseCounter');
         if (progressFill) progressFill.style.width = '100%';
-        if (counter) counter.textContent = '03';
+        if (counter) counter.textContent = '04';
       }
     } else {
       const REVEAL_EXCLUDE = '.team-slider, .reviews-slider, .section--services, #expertisePin';
@@ -672,21 +710,23 @@
         animateRevealGroup(trigger, reveals);
       });
 
-      /* Compare teaser cards (no .reveal class) */
-      gsap.utils.toArray('.compare-teaser-card, .compare-teaser-hub').forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 24,
-          scale: 0.98,
-          duration: 0.7,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
+      /* Compare teaser cards (no .reveal class) — desktop only */
+      if (window.innerWidth >= 1024) {
+        gsap.utils.toArray('.compare-teaser-card, .compare-teaser-hub').forEach((el) => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 24,
+            scale: 0.98,
+            duration: 0.7,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          });
         });
-      });
+      }
 
       /* Subtle parallax on hero glows */
       const glows = document.querySelectorAll('.hero__glow');
@@ -707,6 +747,8 @@
 
       /* Expertise — pinned scroll groups */
       initExpertiseScroll();
+
+      if (lenis) ScrollTrigger.refresh();
 
       window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
       ScrollTrigger.refresh();
