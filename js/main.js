@@ -1445,15 +1445,25 @@ function wireBlackoutModal(blackoutBtn, lenis) {
 
 /* --- Telegram Chat Widget --- */
 (function loadChatWidget() {
-  if (document.querySelector('link[data-ldg-chat]')) return;
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = '/css/chat-widget.css';
-  link.setAttribute('data-ldg-chat', '');
-  document.head.appendChild(link);
+  if (document.querySelector('script[data-ldg-chat]')) return;
+
+  function getSiteAssetBase() {
+    const stylesheet = document.querySelector('link[rel="stylesheet"][href*="main.css"]');
+    if (stylesheet) {
+      const href = stylesheet.getAttribute('href') || '';
+      return href.replace(/css\/main\.css(?:\?.*)?$/, '');
+    }
+    const mainScript = document.querySelector('script[src*="main.js"]');
+    if (mainScript) {
+      const src = mainScript.getAttribute('src') || '';
+      return src.replace(/js\/main\.js(?:\?.*)?$/, '');
+    }
+    return '/';
+  }
 
   const script = document.createElement('script');
-  script.src = '/js/chat-widget.js';
+  script.src = `${getSiteAssetBase()}js/chat-widget.js`;
   script.defer = true;
+  script.setAttribute('data-ldg-chat', '');
   document.body.appendChild(script);
 })();

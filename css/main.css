@@ -1,6 +1,7 @@
 /* ============================================
    Lie Detection Group — Main Stylesheet
    ============================================ */
+@import url('chat-widget.css');
 
 /* --- Accessibility --- */
 .skip-link {
