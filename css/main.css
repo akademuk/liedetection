@@ -3140,6 +3140,18 @@ a.mega-menu__title--link+.mega-menu__title {
   line-height: 1.7;
 }
 
+.team-quote footer {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-style: normal;
+  color: var(--text-secondary);
+}
+
+.team-quote cite {
+  font-style: normal;
+  color: var(--text-primary);
+}
+
 /* ============================================
    Process
    ============================================ */
@@ -4892,9 +4904,11 @@ a.mega-menu__title--link+.mega-menu__title {
   border: 1px solid var(--border);
 }
 
+
 .contact-block__info {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .contact-block__text {
@@ -4902,6 +4916,7 @@ a.mega-menu__title--link+.mega-menu__title {
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 24px;
+  text-align: center;
 }
 
 .contact-block__actions {
@@ -10165,6 +10180,9 @@ a.mega-menu__title--link+.mega-menu__title {
 
 .contact-gallery-header {
   margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .contact-gallery-header .section__subtitle {
