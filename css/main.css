@@ -978,7 +978,7 @@ body.blackout-modal-open {
 .back-to-top {
   position: fixed;
   bottom: 88px;
-  right: 24px;
+  right: 100px;
   z-index: 905;
   display: inline-flex;
   align-items: center;
