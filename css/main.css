@@ -78,6 +78,7 @@
   --site-header-h: calc(var(--topbar-h) + var(--header-main-h));
   --mobile-sticky-cta-h: 72px;
   --mobile-dock-h: 52px;
+  --mobile-bottom-bar-h: 128px;
   --noise-opacity: 0.14;
   --noise-blend: overlay;
   --noise-size: 340px;
@@ -143,6 +144,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: 100%;
+  background-color: var(--bg-main);
+  overscroll-behavior-y: none;
 }
 
 html.lenis,
@@ -162,6 +165,7 @@ body {
   background-color: var(--bg-main);
   transition: var(--transition-theme);
   max-width: 100%;
+  overscroll-behavior-y: none;
 }
 
 /* Subtle film grain — fractal noise, large tile (not pixel-crunchy) */
@@ -4897,9 +4901,9 @@ a.mega-menu__title--link+.mega-menu__title {
 .contact-block {
   display: flex;
   flex-direction: column;
-  gap: 32px 40px;
+  gap: 32px 24px;
   align-items: start;
-  padding: 40px;
+  padding: 24px;
   border-radius: 20px;
   background: var(--hero-gradient);
   border: 1px solid var(--border);
@@ -7808,20 +7812,17 @@ a.mega-menu__title--link+.mega-menu__title {
    ============================================ */
 .sticky-cta {
   display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 950;
   padding: 12px 16px;
-  padding-bottom: max(12px, env(safe-area-inset-bottom));
   gap: 10px;
   background: var(--header-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-bottom-bar {
+  display: none;
 }
 
 .sticky-cta--hidden {
@@ -7872,7 +7873,7 @@ a.mega-menu__title--link+.mega-menu__title {
 
 @media (max-width: 768px) {
   body {
-    padding-bottom: calc(var(--mobile-sticky-cta-h) + var(--mobile-dock-h) + env(safe-area-inset-bottom, 0px) + 4px);
+    padding-bottom: calc(var(--mobile-bottom-bar-h, 128px) + 4px);
   }
 
   body.sticky-cta--off {
@@ -7883,33 +7884,37 @@ a.mega-menu__title--link+.mega-menu__title {
     padding-bottom: 0;
   }
 
+  .mobile-bottom-bar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 945;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .mobile-bottom-bar--hidden {
+    transform: translate3d(0, 100%, 0);
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .mobile-dock {
     display: flex;
     align-items: stretch;
     gap: 8px;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: calc(var(--mobile-sticky-cta-h) + env(safe-area-inset-bottom, 0px));
-    z-index: 945;
+    flex-shrink: 0;
     padding: 8px 12px;
     background: color-mix(in srgb, var(--bg-main) 92%, transparent);
     border-top: 1px solid var(--border);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  body.sticky-cta--off .mobile-dock {
-    bottom: env(safe-area-inset-bottom, 0px);
-    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
-  }
-
-  .mobile-dock--hidden {
-    transform: translateY(100%);
-    opacity: 0;
-    pointer-events: none;
   }
 
   .mobile-dock .military-promo,
@@ -7992,6 +7997,7 @@ a.mega-menu__title--link+.mega-menu__title {
 
   .sticky-cta {
     display: flex;
+    flex-shrink: 0;
   }
 
   .blackout-fix {
@@ -10053,7 +10059,7 @@ a.mega-menu__title--link+.mega-menu__title {
 }
 
 .contact-page-city {
-  padding: 32px 28px;
+  padding: 32px 14px;
 }
 
 .contact-page-city__label {
@@ -11668,7 +11674,7 @@ a.mega-menu__title--link+.mega-menu__title {
 
 .limits-aside {
   position: sticky;
-  top: calc(var(--site-header-h, 72px) + 24px);
+  top: 72px;
 }
 
 .limits-aside-nav {
@@ -14151,4 +14157,9 @@ a.mega-menu__title--link+.mega-menu__title {
   .seo-panel {
     padding: 28px 16px;
   }
+}
+
+.pamyatka-section__head--text {
+  display: flex;
+  align-items: center;
 }

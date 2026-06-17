@@ -337,13 +337,13 @@
     right: 12px;
     left: 12px;
     width: auto;
-    bottom: calc(var(--mobile-sticky-cta-h, 72px) + var(--mobile-dock-h, 52px) + env(safe-area-inset-bottom, 0px) + 8px);
+    bottom: calc(var(--mobile-bottom-bar-h, 128px) + 8px);
     height: auto;
     max-height: none;
   }
 
   body.sticky-cta--off .ldg-chat__panel {
-    bottom: calc(var(--mobile-dock-h, 52px) + env(safe-area-inset-bottom, 0px) + 8px);
+    bottom: 8px;
   }
 }
 

@@ -1090,15 +1090,39 @@
   const contactSection = document.getElementById('contact');
   const footer = document.querySelector('.footer');
 
+  function syncMobileBottomBarHeights() {
+    const bar = document.getElementById('mobileBottomBar');
+    if (!bar || window.innerWidth > 768) {
+      document.documentElement.style.removeProperty('--mobile-bottom-bar-h');
+      return;
+    }
+
+    document.documentElement.style.setProperty(
+      '--mobile-bottom-bar-h',
+      `${bar.offsetHeight}px`
+    );
+  }
+
   function setupMobileDock() {
     if (document.getElementById('mobileDock')) return;
+
+    let bar = document.getElementById('mobileBottomBar');
+    if (!bar && stickyCta?.parentNode) {
+      bar = document.createElement('div');
+      bar.id = 'mobileBottomBar';
+      bar.className = 'mobile-bottom-bar';
+      stickyCta.parentNode.insertBefore(bar, stickyCta);
+      bar.appendChild(stickyCta);
+    }
 
     const dock = document.createElement('div');
     dock.id = 'mobileDock';
     dock.className = 'mobile-dock';
     dock.setAttribute('aria-label', 'Додаткові дії');
 
-    if (stickyCta?.parentNode) {
+    if (bar && stickyCta) {
+      bar.insertBefore(dock, stickyCta);
+    } else if (stickyCta?.parentNode) {
       stickyCta.parentNode.insertBefore(dock, stickyCta);
     } else {
       document.body.appendChild(dock);
@@ -1113,6 +1137,20 @@
     if (blackoutText && !blackoutText.dataset.fullText) {
       blackoutText.dataset.fullText = blackoutText.textContent.trim();
     }
+
+    syncMobileBottomBarHeights();
+
+    if (!setupMobileDock._ro && bar) {
+      setupMobileDock._ro = new ResizeObserver(syncMobileBottomBarHeights);
+      setupMobileDock._ro.observe(bar);
+    }
+
+    if (!setupMobileDock._vv && window.visualViewport) {
+      const onViewportChange = () => syncMobileBottomBarHeights();
+      window.visualViewport.addEventListener('resize', onViewportChange);
+      window.visualViewport.addEventListener('scroll', onViewportChange);
+      setupMobileDock._vv = onViewportChange;
+    }
   }
 
   function syncMobileDockLabels() {
@@ -1124,18 +1162,20 @@
   }
 
   function updateMobileBottomBar() {
-    const mobileDock = document.getElementById('mobileDock');
+    const mobileBottomBar = document.getElementById('mobileBottomBar');
     const isMobile = window.innerWidth <= 768;
 
     if (!isMobile) {
       document.body.classList.remove('sticky-cta--off');
       stickyCta?.classList.remove('sticky-cta--hidden');
-      mobileDock?.classList.remove('mobile-dock--hidden');
+      mobileBottomBar?.classList.remove('mobile-bottom-bar--hidden');
       syncMobileDockLabels();
+      syncMobileBottomBarHeights();
       return;
     }
 
     syncMobileDockLabels();
+    syncMobileBottomBarHeights();
 
     const hideZone = contactSection || footer;
     if (!hideZone) return;
@@ -1144,9 +1184,8 @@
     const viewportH = window.innerHeight;
     const nearContact = rect.top < viewportH - 72;
 
-    stickyCta?.classList.toggle('sticky-cta--hidden', nearContact);
     document.body.classList.toggle('sticky-cta--off', nearContact);
-    mobileDock?.classList.toggle('mobile-dock--hidden', nearContact);
+    mobileBottomBar?.classList.toggle('mobile-bottom-bar--hidden', nearContact);
   }
 
   function bindMobileBottomBarScroll() {

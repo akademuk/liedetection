@@ -92,6 +92,12 @@
     if (isMobile && dock) {
       els.launcher.classList.add('ldg-chat__launcher--dock');
       dock.appendChild(els.launcher);
+      requestAnimationFrame(() => {
+        const bar = document.getElementById('mobileBottomBar');
+        if (bar) {
+          document.documentElement.style.setProperty('--mobile-bottom-bar-h', `${bar.offsetHeight}px`);
+        }
+      });
       return;
     }
 
