@@ -6,6 +6,86 @@
 (function () {
   'use strict';
 
+  /* --- In-app browser / mobile WebView fix (Telegram, etc.) --- */
+  function isInAppBrowser() {
+    const ua = navigator.userAgent || '';
+    const ref = document.referrer || '';
+
+    if (/Telegram/i.test(ua)) return true;
+    if (window.TelegramWebviewProxy != null) return true;
+    if (window.Telegram?.WebApp?.initData) return true;
+    if (/t\.me|telegram\.org|telegram\.me/i.test(ref)) return true;
+    if (/Instagram|FBAN|FBAV|Twitter|Line\//i.test(ua)) return true;
+
+    return false;
+  }
+
+  function isMobileLayout() {
+    return window.matchMedia('(max-width: 768px)').matches;
+  }
+
+  function needsMobileChromeFix() {
+    return isInAppBrowser() || isMobileLayout();
+  }
+
+  function initInAppBrowserFix() {
+    const root = document.documentElement;
+
+    if (!needsMobileChromeFix()) {
+      root.classList.remove('in-app-browser');
+      return;
+    }
+
+    root.classList.add('in-app-browser');
+
+    const viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta && !/viewport-fit=cover/i.test(viewportMeta.content)) {
+      viewportMeta.setAttribute(
+        'content',
+        `${viewportMeta.content}, viewport-fit=cover`.replace(/^,\s*/, '')
+      );
+    }
+
+    if (!document.querySelector('.in-app-chrome-mask--top')) {
+      const topMask = document.createElement('div');
+      topMask.className = 'in-app-chrome-mask in-app-chrome-mask--top';
+      topMask.setAttribute('aria-hidden', 'true');
+      document.body.prepend(topMask);
+
+      const bottomMask = document.createElement('div');
+      bottomMask.className = 'in-app-chrome-mask in-app-chrome-mask--bottom';
+      bottomMask.setAttribute('aria-hidden', 'true');
+      document.body.append(bottomMask);
+    }
+
+    const syncChromeInsets = () => {
+      if (!needsMobileChromeFix()) return;
+
+      const vv = window.visualViewport;
+      if (!vv) {
+        root.style.setProperty('--in-app-chrome-top', '0px');
+        root.style.setProperty('--in-app-chrome-bottom', '0px');
+        return;
+      }
+
+      const top = Math.max(0, Math.round(vv.offsetTop));
+      const bottom = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
+      root.style.setProperty('--in-app-chrome-top', `${top}px`);
+      root.style.setProperty('--in-app-chrome-bottom', `${bottom}px`);
+    };
+
+    syncChromeInsets();
+    window.visualViewport?.addEventListener('resize', syncChromeInsets);
+    window.visualViewport?.addEventListener('scroll', syncChromeInsets);
+    window.addEventListener('resize', () => {
+      initInAppBrowserFix();
+      syncChromeInsets();
+    }, { passive: true });
+    window.addEventListener('scroll', syncChromeInsets, { passive: true });
+  }
+
+  initInAppBrowserFix();
+
   /* --- Theme Toggle --- */
   const themeToggle = document.getElementById('themeToggle');
   const html = document.documentElement;
@@ -95,6 +175,7 @@
   function shouldUseLenis() {
     if (typeof Lenis === 'undefined') return false;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    if (needsMobileChromeFix()) return false;
 
     const ua = navigator.userAgent;
     const isIOS = /iPad|iPhone|iPod/.test(ua)
@@ -1103,6 +1184,28 @@
     );
   }
 
+  function syncDockContents() {
+    const dock = document.getElementById('mobileDock');
+    if (!dock) return;
+
+    const isMobile = window.innerWidth <= 768;
+    const parent = isMobile ? dock : document.body;
+
+    [
+      document.getElementById('militaryPromo'),
+      document.querySelector('.blackout-fix'),
+    ].filter(Boolean).forEach((el) => {
+      if (el.parentElement !== parent) {
+        parent.appendChild(el);
+      }
+    });
+
+    const blackoutText = document.querySelector('.blackout-fix__text');
+    if (blackoutText && !blackoutText.dataset.fullText) {
+      blackoutText.dataset.fullText = blackoutText.textContent.trim();
+    }
+  }
+
   function setupMobileDock() {
     if (document.getElementById('mobileDock')) return;
 
@@ -1128,16 +1231,7 @@
       document.body.appendChild(dock);
     }
 
-    [
-      document.getElementById('militaryPromo'),
-      document.querySelector('.blackout-fix'),
-    ].filter(Boolean).forEach((el) => dock.appendChild(el));
-
-    const blackoutText = dock.querySelector('.blackout-fix__text');
-    if (blackoutText && !blackoutText.dataset.fullText) {
-      blackoutText.dataset.fullText = blackoutText.textContent.trim();
-    }
-
+    syncDockContents();
     syncMobileBottomBarHeights();
 
     if (!setupMobileDock._ro && bar) {
@@ -1164,6 +1258,8 @@
   function updateMobileBottomBar() {
     const mobileBottomBar = document.getElementById('mobileBottomBar');
     const isMobile = window.innerWidth <= 768;
+
+    syncDockContents();
 
     if (!isMobile) {
       document.body.classList.remove('sticky-cta--off');

@@ -189,6 +189,66 @@ body::after {
   }
 }
 
+/* --- In-app browser / mobile WebView (Telegram, etc.) --- */
+@media (max-width: 768px) {
+  html.in-app-browser body::after {
+    display: none;
+  }
+
+  .in-app-chrome-mask {
+    display: none;
+  }
+
+  html.in-app-browser .in-app-chrome-mask {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    background: var(--bg-main);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  html.in-app-browser .in-app-chrome-mask--top {
+    top: 0;
+    z-index: 997;
+    height: calc(var(--in-app-chrome-top, 0px) + var(--site-header-h, 120px));
+  }
+
+  html.in-app-browser .in-app-chrome-mask--bottom {
+    bottom: 0;
+    z-index: 940;
+    height: calc(
+      var(--in-app-chrome-bottom, 0px) + var(--mobile-bottom-bar-h, 128px) + 32px
+    );
+  }
+
+  html.in-app-browser .site-header,
+  html.in-app-browser .topbar,
+  html.in-app-browser .header,
+  html.in-app-browser .sticky-cta,
+  html.in-app-browser .mobile-dock,
+  html.in-app-browser .mobile-bottom-bar {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  html.in-app-browser .site-header,
+  html.in-app-browser .header,
+  html.in-app-browser .sticky-cta,
+  html.in-app-browser .mobile-dock,
+  html.in-app-browser .mobile-bottom-bar {
+    background: var(--bg-main) !important;
+  }
+
+  html.in-app-browser .topbar {
+    background: var(--bg-card) !important;
+  }
+}
+
+/* --- End in-app browser --- */
+
 img,
 svg {
   display: block;
@@ -10431,11 +10491,37 @@ a.mega-menu__title--link+.mega-menu__title {
 .article-prose ol,
 .article-prose ul {
   margin: 0 0 20px;
+}
+
+.article-prose ol {
   padding-left: 24px;
+  list-style: decimal;
+}
+
+.article-prose ul {
+  list-style: none;
+  padding-left: 0;
 }
 
 .article-prose li {
   margin-bottom: 8px;
+}
+
+.article-prose ul > li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.article-prose ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.75;
 }
 
 .article-prose a {
@@ -13070,6 +13156,11 @@ a.mega-menu__title--link+.mega-menu__title {
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-bottom: 20px;
+}
+
+.section--legality-intro > .container > .legality-section__title {
+  margin-top: 0;
+  margin-bottom: 24px;
 }
 
 .legality-intro-card {

@@ -23,7 +23,9 @@ app.use(express.json({ limit: '16kb' }));
 
 app.use('/chat', (req, res, next) => {
   const ip = req.ip || req.socket.remoteAddress || 'unknown';
-  if (!checkRateLimit(ip)) {
+  const isSend = req.method === 'POST' && req.query.action === 'sendMessage';
+  const limitType = isSend ? 'send' : 'poll';
+  if (!checkRateLimit(ip, limitType)) {
     return res.status(429).json({ ok: false, error: 'Too many requests' });
   }
   next();
@@ -57,7 +59,11 @@ async function handleChat(req, res) {
 
       const telegramText = formatOutgoingMessage(userId, text.trim());
       const result = await sendTelegramMessage(telegramText);
-      await pumpTelegram();
+      try {
+        await pumpTelegram();
+      } catch (pumpErr) {
+        console.error('[chat] pump after send:', pumpErr.message);
+      }
       return res.json(result);
     }
 

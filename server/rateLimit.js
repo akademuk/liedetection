@@ -1,30 +1,30 @@
 const hits = new Map();
 
-const WINDOW_MS = 60_000;
-const MAX_REQUESTS = 20;
+const LIMITS = {
+  send: { windowMs: 60_000, max: 30 },
+  poll: { windowMs: 60_000, max: 120 },
+};
 
-export function checkRateLimit(ip) {
+export function checkRateLimit(ip, type = 'send') {
+  const config = LIMITS[type] || LIMITS.send;
+  const key = `${ip}:${type}`;
   const now = Date.now();
-  let entry = hits.get(ip);
+  let entry = hits.get(key);
 
-  if (!entry || now - entry.start > WINDOW_MS) {
+  if (!entry || now - entry.start > config.windowMs) {
     entry = { start: now, count: 0 };
-    hits.set(ip, entry);
+    hits.set(key, entry);
   }
 
   entry.count += 1;
-
-  if (entry.count > MAX_REQUESTS) {
-    return false;
-  }
-
-  return true;
+  return entry.count <= config.max;
 }
 
-/** Cleanup stale entries periodically */
 setInterval(() => {
   const now = Date.now();
-  for (const [ip, entry] of hits) {
-    if (now - entry.start > WINDOW_MS) hits.delete(ip);
+  for (const [key, entry] of hits) {
+    const type = key.split(':').pop();
+    const windowMs = (LIMITS[type] || LIMITS.send).windowMs;
+    if (now - entry.start > windowMs) hits.delete(key);
   }
-}, WINDOW_MS);
+}, 60_000);
