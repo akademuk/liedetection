@@ -20,12 +20,8 @@
     return false;
   }
 
-  function isMobileLayout() {
-    return window.matchMedia('(max-width: 768px)').matches;
-  }
-
   function needsMobileChromeFix() {
-    return isInAppBrowser() || isMobileLayout();
+    return isInAppBrowser();
   }
 
   function initInAppBrowserFix() {
@@ -33,6 +29,9 @@
 
     if (!needsMobileChromeFix()) {
       root.classList.remove('in-app-browser');
+      root.style.removeProperty('--in-app-chrome-top');
+      root.style.removeProperty('--in-app-chrome-bottom');
+      document.querySelectorAll('.in-app-chrome-mask').forEach((el) => el.remove());
       return;
     }
 

@@ -5,9 +5,7 @@
     || window.TelegramWebviewProxy != null
     || /t\.me|telegram\.org|telegram\.me/i.test(ref)
     || /Instagram|FBAN|FBAV|Twitter|Line\//i.test(ua);
-  var isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-  if (isMobile || isMessenger) {
+  if (isMessenger) {
     document.documentElement.classList.add('in-app-browser');
   }
 })();
