@@ -10997,7 +10997,7 @@ a.mega-menu__title--link+.mega-menu__title {
 
 .pamyatka-aside {
   position: sticky;
-  top: calc(var(--site-header-h, 72px) + 24px);
+  top: 72px;
 }
 
 .pamyatka-aside-nav {
